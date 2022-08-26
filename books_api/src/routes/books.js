@@ -1,7 +1,7 @@
 import express from "express";
 import BookService from "../services/books.js"
 
-var router = express.Router();
+const router = express.Router();
 
 /* GET books listing. */
 router.get("/", async (req, res) => {
@@ -28,6 +28,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
+  console.log("body",req)
   const { id } = req.params;
 
   try {
@@ -36,6 +37,17 @@ router.get("/:id", async (req, res) => {
     return res.json(book);
   } catch(e) {
     return res.status(404).json();
+  }
+});
+
+router.post("/create", async (req, res) => {
+  const {name,dewey_decimal, description,author,published_date, genre_id, premium, file} = req.body;
+
+  try {
+    const result =  BookService.createBooks({name,dewey_decimal, description,author,published_date, genre_id, premium, file})
+    return res.json(result)
+  } catch(err) {
+    return res.status(err.statusCode).send(err);
   }
 });
 
