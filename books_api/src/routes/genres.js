@@ -13,7 +13,6 @@ router.get("/:id", async (req, res) => {
 
   try {
     const book = GenreService.getGenreByID(id);
-
     return res.json(book);
   } catch(e) {
     return res.status(404).json();

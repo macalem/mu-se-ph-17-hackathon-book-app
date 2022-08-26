@@ -9,4 +9,6 @@ const getGenreByName = (name) =>
     (genre) => genre.name.toLowerCase().trim() === name.toLowerCase().trim()
   );
 
+
+
 export default { getAllGenres, getGenreByID, getGenreByName };
