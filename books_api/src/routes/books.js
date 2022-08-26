@@ -5,10 +5,10 @@ var router = express.Router();
 
 /* GET books listing. */
 router.get("/", async (req, res) => {
-  const { genre } = req.query;
+  const { filter } = req.query;
 
-  if (genre) {
-    return res.json(BookService.getBooksByGenre(genre));
+  if (filter) {
+    return res.json(BookService.getFilteredBooks(filter));
   }
 
   return res.json(BookService.getAllBooks());
