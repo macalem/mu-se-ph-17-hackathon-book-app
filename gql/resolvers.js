@@ -40,11 +40,51 @@ const Query = {
     } catch (e) {
       return null;
     }
+  }
+};
+
+const Mutation = {
+  async register(parent, args, context, info) {
+    const input = args.input;
+
+    try {
+      const result = await fetch(`${USERS_API_URL}/users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(input),
+      });
+
+      const user = await result.json();
+
+      if (user.error) {
+        throw new Error(user.error);
+      }
+
+      return user;
+    } catch (e) {
+      throw new Error(e);
+    }
+  },
+
+  login: async (parent, args, context, info) => {
+    const input = args.input;
+
+    try {
+      return await (
+        await fetch(`${USERS_API_URL}/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(input),
+        })
+      ).json();
+    } catch (e) {
+      return null;
+    }
   },
 };
 
-
-
-
-
-module.exports = { Query };
+module.exports = { Query, Mutation };
