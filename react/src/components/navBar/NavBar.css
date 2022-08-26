@@ -1,0 +1,17 @@
+.nav-body {
+    background-color: #031424 !important;
+}
+
+.nav-menu-btn {
+    border-radius: 0 !important;
+    border-right: 1px solid white !important;
+    padding: 0 3% 0 3% !important;
+}
+
+.login-text {
+    margin-right: 20px !important;
+}
+
+.login-click {
+    cursor: pointer;
+}
