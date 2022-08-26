@@ -24,12 +24,10 @@ const Query = {
     try {
       let url = `${BOOKS_API_URL}/books`;
 
-      if (args.filter.genre != "") {
-        url = `${url}?genre=${args.filter.genre}`;
+      if (args.filter != "") {
+        url = `${url}?filter=${args.filter}`;
       }
-
       console.log(url);
-
       return await (await fetch(url)).json();
     } catch (e) {
       return null;
@@ -44,5 +42,9 @@ const Query = {
     }
   },
 };
+
+
+
+
 
 module.exports = { Query };

@@ -2,11 +2,12 @@ const { gql } = require("apollo-server");
 
 const typeDefs = gql`
   type Query {
-    books(filter: FilterInput): [Book]
+    books(filter: String): [Book]
     book(id: ID!): Book
     users: [User]
     user(id: ID!): User
   }
+  
 
   type Book {
     id: ID
