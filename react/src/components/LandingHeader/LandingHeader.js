@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import { React, useState } from "react";
 import HeaderImages from "../../const/const";
 import { Box, Paper } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
