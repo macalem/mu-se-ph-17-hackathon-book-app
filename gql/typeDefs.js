@@ -2,11 +2,12 @@ const { gql } = require("apollo-server");
 
 const typeDefs = gql`
   type Query {
-    books(filter: FilterInput): [Book]
+    books(filter: String): [Book]
     book(id: ID!): Book
     users: [User]
     user(id: ID!): User
   }
+  
 
   type Book {
     id: ID
@@ -25,11 +26,26 @@ const typeDefs = gql`
     name: String
     email: String
     is_admin: Boolean
-    title: String
   }
 
   input FilterInput {
     genre: String
+  }
+
+  input LoginInput {
+    email: String
+    password: String
+  }
+
+  type Mutation {
+    register(input: RegisterUserRequest!): User
+    login(input: LoginInput): Boolean
+  }
+
+  input RegisterUserRequest {
+    name: String
+    email: String
+    password: String
   }
 `;
 

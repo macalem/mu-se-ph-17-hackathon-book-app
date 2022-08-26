@@ -16,7 +16,7 @@ router.get("/:id", async (req, res) => {
 
     return res.json(user);
   } catch (e) {
-    return res.status(404).json();
+    return res.status(404).json({ error: "User doesn't exist" });
   }
 });
 
@@ -25,33 +25,15 @@ router.post("/", async (req, res) => {
 
   // validate body params
   if (!name || !email || !password) {
-    return res.status(400).send();
+    return res.status(400).json({ error: "Bad Request Data" });
   }
 
   try {
     const newUser = await UserService.createUser({ name, email, password });
 
-    return res.json(newUser);
+    return res.status(201).json(newUser);
   } catch (e) {
-    return res.status(409).json(e);
-  }
-});
-
-router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-
-  // validate body params
-  if (!email || !password) {
-    return res.status(400).send();
-  }
-
-  try {
-    const result = await UserService.login({ email, password });
-
-    return res.json(result);
-  } catch (e) {
-    console.log(e)
-    return res.status(500).json(e);
+    return res.status(409).json({ error: "User already exists" });
   }
 });
 

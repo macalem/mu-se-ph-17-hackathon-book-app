@@ -24,12 +24,10 @@ const Query = {
     try {
       let url = `${BOOKS_API_URL}/books`;
 
-      if (args.filter.genre != "") {
-        url = `${url}?genre=${args.filter.genre}`;
+      if (args.filter != "") {
+        url = `${url}?filter=${args.filter}`;
       }
-
       console.log(url);
-
       return await (await fetch(url)).json();
     } catch (e) {
       return null;
@@ -42,7 +40,51 @@ const Query = {
     } catch (e) {
       return null;
     }
+  }
+};
+
+const Mutation = {
+  async register(parent, args, context, info) {
+    const input = args.input;
+
+    try {
+      const result = await fetch(`${USERS_API_URL}/users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(input),
+      });
+
+      const user = await result.json();
+
+      if (user.error) {
+        throw new Error(user.error);
+      }
+
+      return user;
+    } catch (e) {
+      throw new Error(e);
+    }
+  },
+
+  login: async (parent, args, context, info) => {
+    const input = args.input;
+
+    try {
+      return await (
+        await fetch(`${USERS_API_URL}/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(input),
+        })
+      ).json();
+    } catch (e) {
+      return null;
+    }
   },
 };
 
-module.exports = { Query };
+module.exports = { Query, Mutation };
