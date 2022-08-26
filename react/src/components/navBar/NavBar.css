@@ -15,3 +15,8 @@
 .login-click {
     cursor: pointer;
 }
+
+.login-link {
+    color: white !important;
+    text-decoration: none !important;
+}
