@@ -4,6 +4,7 @@ import logger from "morgan";
 const { PORT = 5010 } = process.env;
 
 import usersRouter from "./routes/users.js";
+import authRouter from "./routes/auth.js";
 
 var app = express();
 
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use("/users", usersRouter);
+app.use("/login", authRouter);
 
 app.get("*", function (req, res) {
   res.status(404).send("404 not found");
