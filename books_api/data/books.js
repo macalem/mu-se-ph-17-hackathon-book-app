@@ -8,7 +8,8 @@ export default [
         published_date: "1999-01-01",
         genre_id: 2,
         premium: 0,
-        file: "http://fileshare/book1.pdf"
+        file: "http://fileshare/book1.pdf",
+        isbn: "00000"
     },
     {
         id: "2",
@@ -19,7 +20,8 @@ export default [
         published_date: "2002-01-01",
         genre_id: 1,
         premium: 0,
-        file: "http://fileshare/book2.pdf"
+        file: "http://fileshare/book2.pdf",
+        isbn: "11111"
     },
     {
         id: "3",
@@ -30,6 +32,7 @@ export default [
         published_date: "2004-01-01",
         genre_id: 2,
         premium: 1,
-        file: "http://fileshare/book3.pdf"
+        file: "http://fileshare/book3.pdf",
+        isbn: "22222"
     },
 ]
