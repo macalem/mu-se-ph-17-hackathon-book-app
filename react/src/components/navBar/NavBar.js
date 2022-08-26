@@ -11,12 +11,14 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { Link } from 'react-router-dom'
 import './NavBar.css';
 
 const pages = ['Home', 'About Us', 'Author'];
 const settings = ['Login', 'Register'];
 
 function NavBar() {
+  console.log(settings);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -128,11 +130,13 @@ function NavBar() {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open login">
-              <div className='login-text'>
-                <p className="login-click" onClick={handleOpenUserMenu} sx={{ p: 1 }}>LOGIN</p>
-              </div>
+              <Link className="login-link" to='./Login'>
+                <div className='login-text'>
+                  <p className="login-click" sx={{ p: 1 }}>LOGIN</p>
+                </div>
+              </Link>
             </Tooltip>
-            <Menu
+            {/* <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
               anchorEl={anchorElUser}
@@ -146,14 +150,14 @@ function NavBar() {
                 horizontal: 'right',
               }}
               open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
+              // onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
-              ))}
-            </Menu>
+              ))} 
+              </Menu> */}
           </Box>
         </Toolbar>
       </Container>
