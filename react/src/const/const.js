@@ -2,7 +2,7 @@ import Header from "../assets/Header.png";
 
 const HeaderImages = [
   {
-    labe: "1",
+    label: "1",
     imgPath: Header,
   },
   {
