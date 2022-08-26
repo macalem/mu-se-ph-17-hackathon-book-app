@@ -4,10 +4,10 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
+import { Button } from '@mui/material';
 import './BookCard.css';
 
 function BookCard(props) {
-
     return (
         <Card sx={{ display: 'flex' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -19,13 +19,16 @@ function BookCard(props) {
                         {props.author}
                     </Typography>
                 </CardContent>
+                <Button variant="contained">Accept</Button>
+                <Button variant="outlined">Reject</Button> 
             </Box>
             <CardMedia
                 component="img"
-                sx={{ width: 200, height: 200 }}
+                sx={{ width: '500', height: 'auto' }}
                 image={props.image}
                 alt="Noli Me Tangere"
             />
+                    
         </Card>
     );
 }
