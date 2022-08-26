@@ -5,6 +5,7 @@ import {
   MDBIcon,
   MDBBtn
 } from 'mdb-react-ui-kit';
+import './Footer.css';
 
 function Footer() {
   return (
@@ -16,7 +17,7 @@ function Footer() {
             link
             floating
             size="lg"
-            className='text-dark m-1'
+            className='text-dark m-3'
             href='#!'
             role='button'
           >
@@ -28,7 +29,7 @@ function Footer() {
             link
             floating
             size="lg"
-            className='text-dark m-1'
+            className='text-dark m-3'
             href='#!'
             role='button'
           >
@@ -40,7 +41,7 @@ function Footer() {
             link
             floating
             size="lg"
-            className='text-dark m-1'
+            className='text-dark m-3'
             href='#!'
             role='button'
           >
@@ -49,11 +50,8 @@ function Footer() {
         </section>
       </MDBContainer>
 
-      <div className='text-center text-dark p-3' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
-        &copy; {new Date().getFullYear()} Copyright
-        <a className='text-dark' href='https://mdbootstrap.com/'>
-          MDBootstrap.com
-        </a>
+      <div className='text-center text-dark p-3' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }} id="footer-body">
+        &copy; {new Date().getFullYear()} Copyright MAKABASA
       </div>
     </MDBFooter>
   );

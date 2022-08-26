@@ -19,8 +19,8 @@ function BookCard(props) {
                         {props.author}
                     </Typography>
                 </CardContent>
-                <Button variant="contained">Accept</Button>
-                <Button variant="outlined">Reject</Button> 
+                {/* <Button variant="contained">Accept</Button>
+                <Button variant="outlined">Reject</Button>  */}
             </Box>
             <CardMedia
                 component="img"

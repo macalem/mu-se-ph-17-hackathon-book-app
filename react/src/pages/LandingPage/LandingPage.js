@@ -6,6 +6,7 @@ import BookCard from '../../components/card/BookCard';
 import Grid from '@mui/material/Unstable_Grid2';
 import Footer from '../../components/footer/Footer';
 import { gql, useLazyQuery } from "@apollo/client";
+import Container from '@mui/material/Container';
 
 import './LandingPage.css'
 
@@ -23,7 +24,7 @@ const GET_BOOKS = gql`
 function LandingPage() {
   const [filter, setFilter] = useState("");
 
-  const [GetBooks, { loading, data }] = useLazyQuery(GET_BOOKS, {
+  const [GetBooks, { data }] = useLazyQuery(GET_BOOKS, {
     variables: {
       filter: filter,
     },
@@ -42,20 +43,19 @@ function LandingPage() {
       <Nav />
       <LandingHeader />
       <SearchBar handleClickFilter={handleClickFilter} />
-
-      <Grid container spacing={12} id="grid-container">
-        {data?.books &&
-          data.books.map(book => {
-            return (
-              <Grid xs={4}>
-                <BookCard title={book.name} author={book.author} image={book.cover}/>
-              </Grid>
-            )
-          })
-      }
-        
-      </Grid>
-
+      <Container>
+        <Grid container spacing={12} id="grid-container">
+          {data?.books &&
+            data.books.map(book => {
+              return (
+                <Grid xs={4}>
+                  <BookCard title={book.name} author={book.author} image={book.cover} />
+                </Grid>
+              )
+            })
+          }
+        </Grid>
+      </Container>
       <Footer />
     </>
   )
