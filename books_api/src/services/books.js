@@ -7,12 +7,10 @@ const getAllBooks = () => {
   const genres = GenreService.getAllGenres();
 
   const books = booksData.map((book) => {
-   
     return {
       ...book,
       genre: genres.find((genre) => genre.id == book.genre_id).name,
     };
-
   });
 
   return books;
@@ -36,9 +34,10 @@ const createBooks = ({
   genre_id,
   premium,
   file,
-  isbn
+  isbn,
 }) => {
-  const newBooks = {
+
+  const newBook = {
     id: parseInt(books[books.length - 1].id) + 1,
     name: name,
     dewey_decimal: dewey_decimal,
@@ -48,31 +47,45 @@ const createBooks = ({
     genre_id: genre_id,
     premium: premium,
     file: file,
-    isbn: isbn
+    isbn: isbn,
   };
 
-    // validate params
-    if (!author || !name || !file) {
-      throw new Error("Missing required parameters");
-    }
-  
-    // check if user exists.
-    if (books.find((book) => book.isbn === isbn)) {
-      console.log("here")
-      throw new Error("Book already exists");
-    }
-  books.push(newBooks);
+  // validate params
+  if (!author || !name || !file || !isbn) {
+    throw new Error("Missing required parameters");
+  }
 
-}
+  // check if user exists.
+  if (books.find((book) => book.isbn === isbn)) {
+    console.log("here");
+    throw new Error("Book already exists");
+  }
+
+  books.push(newBook);
+
+  return newBook;
+};
+
 // Fetch list of books by filter
 const getFilteredBooks = (filter) => {
   const genres = GenreService.getAllGenres();
-  // let books = getAllBooks().filter((book) => book.genre_id == genres.find(genre => genre.name == filter));
 
-  const books = getAllBooks().filter(book => book.author.includes(filter) || book.name.includes(filter) || book.genre_id == genres.find(genre => genre.name.includes(filter)));
+  filter = filter.trim().toLowerCase()
+
+  const books = getAllBooks().filter(
+    (book) =>
+      book.author.trim().toLowerCase().includes(filter) ||
+      book.name.trim().toLowerCase().includes(filter) ||
+      book.genre_id == genres.find((genre) => genre.name.trim().toLowerCase().includes(filter))
+  );
 
   return books;
 };
 
-
-export default { getAllBooks, getBookByID, getBooksByGenre, createBooks, getFilteredBooks }
+export default {
+  getAllBooks,
+  getBookByID,
+  getBooksByGenre,
+  createBooks,
+  getFilteredBooks,
+};

@@ -19,6 +19,8 @@ const typeDefs = gql`
     genre_id: String
     premium: Boolean
     file: String
+    isbn: String
+    cover: String
   }
 
   type User {
@@ -28,24 +30,33 @@ const typeDefs = gql`
     is_admin: Boolean
   }
 
-  input FilterInput {
-    genre: String
-  }
-
   input LoginInput {
-    email: String
-    password: String
+    email: String!
+    password: String!
   }
 
   type Mutation {
-    register(input: RegisterUserRequest!): User
+    register(input: RegisterUserRequest): User
+    addBook(input: AddBookRequest): Book
     login(input: LoginInput): Boolean
   }
 
+  input AddBookRequest {
+    name: String!
+    dewey_decimal: String
+    description: String
+    author: String!
+    published_date: String
+    genre_id: Int
+    premium: Boolean
+    file: String
+    isbn: String!
+  }
+
   input RegisterUserRequest {
-    name: String
-    email: String
-    password: String
+    name: String!
+    email: String!
+    password: String!
   }
 `;
 

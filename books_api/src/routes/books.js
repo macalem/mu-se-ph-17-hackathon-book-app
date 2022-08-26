@@ -1,5 +1,5 @@
 import express from "express";
-import BookService from "../services/books.js"
+import BookService from "../services/books.js";
 
 const router = express.Router();
 
@@ -12,7 +12,6 @@ router.get("/", async (req, res) => {
   }
 
   return res.json(BookService.getAllBooks());
-  
 });
 
 router.get("/:id", async (req, res) => {
@@ -22,33 +21,45 @@ router.get("/:id", async (req, res) => {
     const book = BookService.getBookByID(id);
 
     return res.json(book);
-  } catch(e) {
-    return res.status(404).json();
+  } catch (e) {
+    return res.status(404).json({ error: "Book doesn't exist" });
   }
 });
 
-router.get("/:id", async (req, res) => {
-  console.log("body",req)
-  const { id } = req.params;
+router.post("/", async (req, res) => {
+  const {
+    name,
+    dewey_decimal,
+    isbn,
+    description,
+    author,
+    published_date,
+    genre_id,
+    premium,
+    file,
+  } = req.body;
 
-  try {
-    const book = BookService.getBookByID(id);
-
-    return res.json(book);
-  } catch(e) {
-    return res.status(404).json();
+  // validate body params
+  if (!author || !name || !file || !isbn) {
+    return res.status(400).json({ error: "Bad Request Data" });
   }
-});
-
-router.post("/create", async (req, res) => {
-  const {name,dewey_decimal,isbn, description,author,published_date, genre_id, premium, file} = req.body;
 
   try {
-    const result =  BookService.createBooks({name,dewey_decimal,isbn, description,author,published_date, genre_id, premium, file})
-    return res.json(result)
-  } catch(err) {
-    console.log(err)
-    return res.status(409).send(err);
+    const result = BookService.createBooks({
+      name,
+      dewey_decimal,
+      isbn,
+      description,
+      author,
+      published_date,
+      genre_id,
+      premium,
+      file,
+    });
+    return res.json(result);
+  } catch (err) {
+    console.log(err);
+    return res.status(409).json({ error: "Book already exists" });
   }
 });
 

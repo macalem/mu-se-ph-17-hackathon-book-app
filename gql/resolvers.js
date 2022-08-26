@@ -85,6 +85,30 @@ const Mutation = {
       return null;
     }
   },
+
+  async addBook(parent, args, context, info) {
+    const input = args.input;
+
+    try {
+      const result = await fetch(`${BOOKS_API_URL}/books`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(input),
+      });
+
+      const book = await result.json();
+
+      if (book.error) {
+        throw new Error(book.error);
+      }
+
+      return book;
+    } catch (e) {
+      throw new Error(e);
+    }
+  },
 };
 
 module.exports = { Query, Mutation };
