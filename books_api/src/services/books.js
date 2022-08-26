@@ -36,6 +36,7 @@ const createBooks = ({
   genre_id,
   premium,
   file,
+  isbn
 }) => {
   const newBooks = {
     id: parseInt(books[books.length - 1].id) + 1,
@@ -47,9 +48,22 @@ const createBooks = ({
     genre_id: genre_id,
     premium: premium,
     file: file,
+    isbn: isbn
   };
 
+    // validate params
+    if (!author || !name || !file) {
+      throw new Error("Missing required parameters");
+    }
+  
+    // check if user exists.
+    if (books.find((book) => book.isbn === isbn)) {
+      console.log("here")
+      throw new Error("Book already exists");
+    }
   books.push(newBooks);
+
+}
 // Fetch list of books by filter
 const getFilteredBooks = (filter) => {
   const genres = GenreService.getAllGenres();
@@ -59,6 +73,6 @@ const getFilteredBooks = (filter) => {
 
   return books;
 };
-}
+
 
 export default { getAllBooks, getBookByID, getBooksByGenre, createBooks, getFilteredBooks }

@@ -1,6 +1,7 @@
 import React from 'react';
 import Nav from '../../components/navBar/NavBar';
 import LandingHeader from '../../components/LandingHeader/LandingHeader';
+import SearchBar from '../../components/SearchBar/SearchBar'
 import BookCard from '../../components/card/BookCard';
 import Grid from '@mui/material/Unstable_Grid2';
 import Footer from '../../components/footer/Footer';
@@ -43,6 +44,7 @@ function LandingPage() {
     <>
       <Nav />
       <LandingHeader />
+      <SearchBar />
 
       <Grid container spacing={12} id="grid-container">
         {
