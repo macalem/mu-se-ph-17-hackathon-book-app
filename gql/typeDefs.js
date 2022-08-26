@@ -21,6 +21,7 @@ const typeDefs = gql`
     file: String
     isbn: String
     cover: String
+    status: String
   }
 
   type User {

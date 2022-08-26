@@ -10,7 +10,8 @@ export default [
         premium: 0,
         file: "http://fileshare/book1.pdf",
         isbn: "00000",
-        cover: "/assets/image 5.png"
+        cover: "/assets/image 5.png",
+        status: "PENDING"
     },
     {
         id: "2",
@@ -23,7 +24,8 @@ export default [
         premium: 0,
         file: "http://fileshare/book2.pdf",
         isbn: "11111",
-        cover: "/assets/image 7.png"
+        cover: "/assets/image 7.png",
+        status: "PENDING"
     },
     {
         id: "3",
@@ -36,7 +38,8 @@ export default [
         premium: 1,
         file: "http://fileshare/book3.pdf",
         isbn: "22222",
-        cover: "/assets/image 8.png"
+        cover: "/assets/image 8.png",
+        status: "APPROVE"
     },
     {
         id: "4",
@@ -49,6 +52,7 @@ export default [
         premium: 1,
         file: "http://fileshare/book3.pdf",
         isbn: "22222",
-        cover: "/assets/image 8.png"
+        cover: "/assets/image 8.png",
+        status: "REJECT"
     }
 ]
