@@ -1,0 +1,24 @@
+{
+  "name": "mu-se-ph-17-hackathon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"cd books_api && npm run dev\" \"cd users_api && npm run dev\" \"cd gql && npm run dev\" \"cd react && npm start\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/macalem/mu-se-ph-17-hackathon-book-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/macalem/mu-se-ph-17-hackathon-book-app/issues"
+  },
+  "homepage": "https://github.com/macalem/mu-se-ph-17-hackathon-book-app#readme",
+  "dependencies": {
+    "concurrently": "^7.3.0"
+  }
+}
