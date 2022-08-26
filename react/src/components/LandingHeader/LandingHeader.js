@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import React, { useState } from "react";
 import HeaderImages from "../../const/const";
 import { Box, Paper } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -8,7 +8,7 @@ import { autoPlay } from "react-swipeable-views-utils-react-18-fix";
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 function LandingHeader() {
-  const theme = useTheme();
+  const themeCarousel = useTheme();
   const [activeStep, setActiveStep] = useState(0);
 
   const handleStepChange = (step) => {
@@ -29,7 +29,7 @@ function LandingHeader() {
         }}
       >
         <AutoPlaySwipeableViews
-          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+          axis={themeCarousel.direction === "rtl" ? "x-reverse" : "x"}
           index={activeStep}
           onChangeIndex={handleStepChange}
           enableMouseEvents
