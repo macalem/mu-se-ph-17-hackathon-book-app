@@ -22,6 +22,7 @@ import "./Login.css";
 
 import roles from "../../const/roles";
 import useAuth from "../../hooks/useAuth";
+import Footer from "../../components/footer/Footer";
 
 function SignUp(props) {
   return (
@@ -233,6 +234,7 @@ export default function Login() {
           </Grid>
         </Grid>
       </Container>
+      <Footer />
     </ThemeProvider>
   );
 }

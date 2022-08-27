@@ -23,6 +23,7 @@ import "./Register.css";
 import useAuth from "../../hooks/useAuth";
 
 import Nav from "../../components/navBar/NavBar";
+import Footer from "../../components/footer/Footer";
 
 function SignIn(props) {
   return (
@@ -282,6 +283,7 @@ export default function Register() {
           </Grid>
         </Grid>
       </Container>
+      <Footer />
     </ThemeProvider>
   );
 }
