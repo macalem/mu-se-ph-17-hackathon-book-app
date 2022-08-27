@@ -9,6 +9,7 @@ import { gql, useLazyQuery } from "@apollo/client";
 import Container from '@mui/material/Container';
 
 import './LandingPage.css'
+import useAuth from '../../hooks/useAuth';
 
 const GET_BOOKS = gql`
   query GetBooks($filter: String) {
@@ -17,11 +18,14 @@ const GET_BOOKS = gql`
       name
       author
       cover
+      premium
     }
   }
 `;
 
 function LandingPage() {
+  const { auth } = useAuth();
+
   const [filter, setFilter] = useState("");
 
   const [GetBooks, { data }] = useLazyQuery(GET_BOOKS, {
@@ -47,9 +51,13 @@ function LandingPage() {
         <Grid container spacing={12} id="grid-container">
           {data?.books &&
             data.books.map(book => {
+              console.log(auth,book.premium)
+              if (!auth?.user && book.premium) { 
+                return false
+              }
               return (
-                <Grid xs={4}>
-                  <BookCard title={book.name} author={book.author} image={book.cover} />
+                <Grid key={book.id} xs={4}>
+                  <BookCard title={book.name} author={book.author} image={book.cover} premium={book.premium} />
                 </Grid>
               )
             })

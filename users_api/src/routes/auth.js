@@ -12,12 +12,11 @@ router.post("/", async (req, res) => {
   }
 
   try {
-    const result = await AuthService.login({ email, password });
+    const user = await AuthService.login({ email, password });
 
-    return res.json(result);
+    return res.json(user);
   } catch (e) {
-    console.log(e)
-    return res.status(500).json(e);
+    return res.status(401).json({ error: e.message });
   }
 });
 

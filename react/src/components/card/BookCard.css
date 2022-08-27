@@ -1,5 +1,17 @@
+.book-card {
+
+}
+
+.book-card-premium {
+    border: 1px solid gold;
+}
+
 .card-description {
     background-color: #30415D !important;
+}
+
+.card-description-premium {
+    background-color: #d5b406 !important;
 }
 
 .card-text {

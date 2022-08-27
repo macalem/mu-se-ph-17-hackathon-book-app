@@ -72,7 +72,7 @@ const Mutation = {
     const input = args.input;
 
     try {
-      return await (
+      const user = await (
         await fetch(`${USERS_API_URL}/login`, {
           method: "POST",
           headers: {
@@ -81,8 +81,14 @@ const Mutation = {
           body: JSON.stringify(input),
         })
       ).json();
+
+      if (user.error) {
+        throw new Error(user.error);
+      }
+
+      return user;
     } catch (e) {
-      return null;
+      throw new Error(e.message);
     }
   },
 

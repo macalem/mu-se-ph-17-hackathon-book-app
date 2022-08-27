@@ -27,7 +27,6 @@ function AdminPage() {
 
   useEffect(() => {
     GetBooks();
-    console.log(data);
   }, [GetBooks]);
   return (
     <>

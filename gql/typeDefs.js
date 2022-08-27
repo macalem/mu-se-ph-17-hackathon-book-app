@@ -28,7 +28,7 @@ const typeDefs = gql`
     id: ID
     name: String
     email: String
-    is_admin: Boolean
+    roles: [String]
   }
 
   input LoginInput {
@@ -38,7 +38,7 @@ const typeDefs = gql`
 
   type Mutation {
     register(input: RegisterUserRequest): User
-    login(input: LoginInput): Boolean
+    login(input: LoginInput): User
     addBook(input: AddBookRequest): Book
     updateBookStatus(input: UpdateBookStatusRequest): UpdateBookStatusResponse
   }

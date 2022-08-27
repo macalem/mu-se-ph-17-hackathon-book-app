@@ -1,6 +1,7 @@
 import hash from "../utils/hashPassword.js";
 
 import users from "../../data/users.js";
+import roles from "../../data/roles.js";
 
 const getAllUsers = () => users;
 
@@ -24,7 +25,7 @@ const createUser = async ({ name, email, password }) => {
     name: name,
     email: email,
     password: pass,
-    is_admin: false,
+    roles: [roles.User],
   };
 
   users.push(newUser);
@@ -33,7 +34,7 @@ const createUser = async ({ name, email, password }) => {
     id: newUser.id,
     name: newUser.name,
     email: newUser.email,
-    is_admin: newUser.is_admin,
+    roles: newUser.roles,
   };
 };
 

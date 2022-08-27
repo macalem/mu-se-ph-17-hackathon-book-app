@@ -1,22 +1,33 @@
-import React from 'react';
+import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from './pages/LandingPage/LandingPage';
-import Login from './pages/LoginPage/Login';
-import Register from './pages/RegisterPage/Register';
+import Home from "./pages/LandingPage/LandingPage";
+import Login from "./pages/LoginPage/Login";
+import Register from "./pages/RegisterPage/Register";
 import AdminPage from "./pages/AdminPage/AdminPage";
-import AuthorPage from './pages/AuthorPage/AuthorPage';
-import './App.css';
+import AuthorPage from "./pages/AuthorPage/AuthorPage";
+import RequireAuth from "./components/RequireAuth/RequireAuth";
+import ROLES from "./const/roles";
+import "./App.css";
+import UnauthorizedLogin from "./components/UnauthorizedLogin/UnauthorizedLogin";
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Routes>
+          {/* public routes */}
           <Route exact path="/" element={<Home />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/Register" element={<Register />} />
-          <Route path="/admin" element={<AdminPage />} />
           <Route path="/author" element={<AuthorPage />} />
+
+          <Route element={<UnauthorizedLogin />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Route>
+
+          {/* we want to protect these routes */}
+          <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+            <Route path="/admin" element={<AdminPage />} />
+          </Route>
         </Routes>
       </Router>
     </div>

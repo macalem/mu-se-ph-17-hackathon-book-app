@@ -14,11 +14,10 @@ function Footer() {
         <section className='mb-4'>
           <MDBBtn
             rippleColor="dark"
-            link
             floating
             size="lg"
             className='text-dark m-3'
-            href='#!'
+            href='#'
             role='button'
             id="icon-bg"
           >
@@ -27,11 +26,10 @@ function Footer() {
 
           <MDBBtn
             rippleColor="dark"
-            link
             floating
             size="lg"
             className='text-dark m-3'
-            href='#!'
+            href='#'
             role='button'
             id="icon-bg"
           >
@@ -40,11 +38,10 @@ function Footer() {
 
           <MDBBtn
             rippleColor="dark"
-            link
             floating
             size="lg"
             className='text-dark m-3'
-            href='#!'
+            href='#'
             role='button'
             id="icon-bg"
           >

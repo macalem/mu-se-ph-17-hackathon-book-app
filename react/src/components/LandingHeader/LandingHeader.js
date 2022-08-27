@@ -1,19 +1,9 @@
-import React, { useState } from "react";
 import HeaderImages from "../../const/const";
 import { Box, Paper } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import SwipeableViews from "react-swipeable-views-react-18-fix";
-import { autoPlay } from "react-swipeable-views-utils-react-18-fix";
-
-const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 
 function LandingHeader() {
-  const themeCarousel = useTheme();
-  const [activeStep, setActiveStep] = useState(0);
-
-  const handleStepChange = (step) => {
-    setActiveStep(step);
-  };
 
   return (
     <Box>
@@ -28,33 +18,15 @@ function LandingHeader() {
           bgcolor: "background.default",
         }}
       >
-        <AutoPlaySwipeableViews
-          axis={themeCarousel.direction === "rtl" ? "x-reverse" : "x"}
-          index={activeStep}
-          onChangeIndex={handleStepChange}
-          enableMouseEvents
-        >
+        <Carousel showArrows={false} autoPlay={true} interval={2000} infiniteLoop showThumbs={false}>
           {HeaderImages.map((step, index) => {
             return (
-              <div key={step.label}>
-                {Math.abs(activeStep - index) <= 2 ? (
-                  <Box
-                    component="img"
-                    sx={{
-                      //height: 1000,
-                      display: "block",
-                      //maxWidth: 1000,
-                      //overflow: "hidden",
-                      width: "100%",
-                    }}
-                    src={step.imgPath}
-                    alt={step.label}
-                  />
-                ) : null}
+              <div key={index}>
+                <img src={step.imgPath} alt={step.label} />
               </div>
             );
           })}
-        </AutoPlaySwipeableViews>
+        </Carousel>
       </Paper>
     </Box>
   );
