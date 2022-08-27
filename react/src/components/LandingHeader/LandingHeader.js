@@ -18,7 +18,7 @@ function LandingHeader() {
           bgcolor: "background.default",
         }}
       >
-        <Carousel showArrows={false} autoPlay={true} interval={2000} infiniteLoop showThumbs={false}>
+        <Carousel showArrows={false} autoPlay={true} interval={2000} infiniteLoop showThumbs={false} showStatus={false}>
           {HeaderImages.map((step, index) => {
             return (
               <div key={index}>
