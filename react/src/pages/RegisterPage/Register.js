@@ -88,16 +88,19 @@ export default function Register() {
     onCompleted: (result) => {
       console.log(result);
 
-      const userAuth = { user: { ...result.register }, roles: result.register.roles };
+      const userAuth = {
+        user: { ...result.register },
+        roles: result.register.roles,
+      };
       setAuth(userAuth);
-      localStorage.setItem('auth', JSON.stringify(userAuth));
+      localStorage.setItem("auth", JSON.stringify(userAuth));
 
       setSnackBarSeverity("success");
       setSnackBarMessage("You are successfully registered!");
       setOpenSnackbar(true);
       setDisableSubmitButton(false);
       reset();
-      
+
       navigate(from, { replace: true });
     },
     onError: (error) => {
@@ -164,7 +167,7 @@ export default function Register() {
             sm={4}
             md={7}
             sx={{
-              backgroundImage: "url(https://source.unsplash.com/random)",
+              backgroundImage: "url(https://res.cloudinary.com/kthln10/image/upload/v1661614919/registerBanner_rvjylh.jpg)",
               backgroundRepeat: "no-repeat",
               backgroundColor: (t) =>
                 t.palette.mode === "light"

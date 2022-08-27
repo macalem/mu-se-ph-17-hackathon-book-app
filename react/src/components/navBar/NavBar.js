@@ -50,23 +50,6 @@ function NavBar() {
     <AppBar className="nav-body" position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            <Link to="/">MAKABASA</Link>
-          </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -112,25 +95,30 @@ function NavBar() {
                   ""
                 );
               })}
+              {auth?.user ? (
+                <Link className="nav-menu-link-mbl" to="/" onClick={signOut}>
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">Sign Out</Typography>
+                  </MenuItem>
+                </Link>
+              ) : (
+                <Link className="nav-menu-link-mbl" to="/login">
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">Login</Typography>
+                  </MenuItem>
+                </Link>
+              )}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
 
-          <Typography
-            variant="h5"
-            noWrap
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            <Link to="/">MAKABASA</Link>
+          <Typography variant="title">
+            <Link to="/">
+              <img
+                src="https://res.cloudinary.com/kthln10/image/upload/v1661620394/origLogo_qdjmem.png"
+                width={182}
+                height={58}
+              />
+            </Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => {
@@ -152,7 +140,7 @@ function NavBar() {
             })}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
             {!auth.user ? (
               <Tooltip title="Open login">
                 <Link className="login-link" to="/Login">
