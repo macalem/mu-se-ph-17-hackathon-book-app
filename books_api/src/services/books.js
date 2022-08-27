@@ -1,6 +1,7 @@
 import booksData from "../../data/books.js";
 import GenreService from "./genres.js";
-import books from "../../data/books.js";
+
+import BOOK_STATUSES from '../constants/status.js';
 
 // Fetch All Books
 const getAllBooks = () => {
@@ -17,7 +18,7 @@ const getAllBooks = () => {
 };
 
 // Fetch specific book by its ID
-const getBookByID = (id) => getAllBooks().find((book) => book.id === id);
+const getBookByID = (id) => getAllBooks().find((book) => book.id == id);
 
 // Fetch list of books by Genre name
 const getBooksByGenre = (genreName) => {
@@ -38,7 +39,7 @@ const createBooks = ({
 }) => {
 
   const newBook = {
-    id: parseInt(books[books.length - 1].id) + 1,
+    id: parseInt(booksData[booksData.length - 1].id) + 1,
     name: name,
     dewey_decimal: dewey_decimal,
     description: description,
@@ -82,10 +83,22 @@ const getFilteredBooks = (filter) => {
   return books;
 };
 
+// Update status of a book
+const updateBookStatus = ({id, status}) => {
+  if (!BOOK_STATUSES.includes(status)) throw new Error("wrong status");
+
+  if (!getBookByID(id)) throw new Error("Book doesn't exist.");
+
+  booksData[booksData.findIndex(book => book.id == id)].status = status;
+
+  return true;
+}
+
 export default {
   getAllBooks,
   getBookByID,
   getBooksByGenre,
   createBooks,
   getFilteredBooks,
+  updateBookStatus
 };

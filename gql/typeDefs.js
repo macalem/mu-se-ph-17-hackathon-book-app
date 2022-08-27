@@ -38,8 +38,9 @@ const typeDefs = gql`
 
   type Mutation {
     register(input: RegisterUserRequest): User
-    addBook(input: AddBookRequest): Book
     login(input: LoginInput): Boolean
+    addBook(input: AddBookRequest): Book
+    updateBookStatus(input: UpdateBookStatusRequest): UpdateBookStatusResponse
   }
 
   input AddBookRequest {
@@ -52,6 +53,15 @@ const typeDefs = gql`
     premium: Boolean
     file: String
     isbn: String!
+  }
+
+  input UpdateBookStatusRequest {
+    id: ID!
+    status: String!
+  }
+
+  type UpdateBookStatusResponse {
+    result: String
   }
 
   input RegisterUserRequest {

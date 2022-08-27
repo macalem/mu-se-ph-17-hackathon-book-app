@@ -63,4 +63,21 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.post("/:id/status", async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  if (!status) {
+    return res.status(400).json({ error: "Bad Request Data" });
+  }
+
+  try {
+    const result = BookService.updateBookStatus({ id, status });
+
+    return res.json(result);
+  } catch (e) {
+    return res.status(500).json({ error: e.message });
+  }
+});
+
 export default router;

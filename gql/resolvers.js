@@ -40,7 +40,7 @@ const Query = {
     } catch (e) {
       return null;
     }
-  }
+  },
 };
 
 const Mutation = {
@@ -105,6 +105,30 @@ const Mutation = {
       }
 
       return book;
+    } catch (e) {
+      throw new Error(e);
+    }
+  },
+
+  async updateBookStatus(parent, args, context, info) {
+    const input = args.input;
+
+    try {
+      const result = await fetch(`${BOOKS_API_URL}/books/${input.id}/status`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status: input.status }),
+      });
+
+      const response = await result.json();
+
+      if (response.error) {
+        throw new Error(response.error);
+      }
+
+      return { result: response };
     } catch (e) {
       throw new Error(e);
     }
