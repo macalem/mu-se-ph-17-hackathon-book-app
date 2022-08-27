@@ -9,6 +9,7 @@ import '../LandingPage/LandingPage.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import BookDetailsPage from './BookDetails';
 import { gql, useLazyQuery } from "@apollo/client";
+import PendingBookCards from '../../components/PendingBooks/PendingBookCard';
 
   const GET_BOOKS = gql`
   query GetBooks($filter: String) {
