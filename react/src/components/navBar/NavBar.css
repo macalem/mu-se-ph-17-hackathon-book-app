@@ -21,3 +21,17 @@
     color: white !important;
     text-decoration: none !important;
 }
+
+.nav-menu-link {
+    text-decoration: none;
+    color: white;
+}
+
+.nav-menu-link:hover {
+    color: #FFD357 !important;
+}
+
+.nav-menu-link-mbl {
+    text-decoration: none;
+    color: black;
+}

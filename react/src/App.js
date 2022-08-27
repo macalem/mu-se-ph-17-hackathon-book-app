@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from './pages/LandingPage/LandingPage';
 import Login from './pages/LoginPage/Login';
 import Register from './pages/RegisterPage/Register';
-import './App.css';
 import AdminPage from "./pages/AdminPage/AdminPage";
+import AuthorPage from './pages/AuthorPage/AuthorPage';
+import './App.css';
 
 function App() {
   return (
@@ -12,10 +13,10 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route exact path="/admin" element={<AdminPage />} />
-          <Route exact path="/Login" element={<Login />} />
-          <Route exact path="/admin" element={<AdminPage />} />
-          <Route exact path="/Register" element={<Register />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/Register" element={<Register />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/author" element={<AuthorPage />} />
         </Routes>
       </Router>
     </div>

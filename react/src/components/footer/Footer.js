@@ -10,7 +10,7 @@ import './Footer.css';
 function Footer() {
   return (
     <MDBFooter className='text-center text-white' style={{ backgroundColor: '#f1f1f1' }}>
-      <MDBContainer className='pt-4'>
+      <MDBContainer className='pt-4' id="footer-socials">
         <section className='mb-4'>
           <MDBBtn
             rippleColor="dark"
@@ -20,6 +20,7 @@ function Footer() {
             className='text-dark m-3'
             href='#!'
             role='button'
+            id="icon-bg"
           >
             <MDBIcon fab className='fab fa-facebook-f' />
           </MDBBtn>
@@ -32,6 +33,7 @@ function Footer() {
             className='text-dark m-3'
             href='#!'
             role='button'
+            id="icon-bg"
           >
             <MDBIcon fab className='fa-twitter' />
           </MDBBtn>
@@ -44,6 +46,7 @@ function Footer() {
             className='text-dark m-3'
             href='#!'
             role='button'
+            id="icon-bg"
           >
             <MDBIcon fab className='fa-instagram' />
           </MDBBtn>

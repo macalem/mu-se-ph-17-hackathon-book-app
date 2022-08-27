@@ -14,28 +14,23 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom'
 import './NavBar.css';
 
-const pages = ['Home', 'About Us', 'Author'];
-const settings = ['Login', 'Register'];
+const pages = [
+  { id: 1, name: "Home", link: "/" },
+  { id: 2, name: "About Us", link: "/register" },
+  { id: 3, name: "Author", link: "/author" }
+];
 
 function NavBar() {
-  console.log(settings);
+  console.log(pages)
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  // const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-  // const handleOpenUserMenu = (event) => {
-  //   setAnchorElUser(event.currentTarget);
-  // };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
-  // const handleCloseUserMenu = () => {
-  //   setAnchorElUser(null);
-  // };
 
   return (
     <AppBar className="nav-body" position="static">
@@ -90,9 +85,11 @@ function NavBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
+                <Link className="nav-menu-link-mbl" key={page.id} to={page.link}>
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">{page.name}</Typography>
+                  </MenuItem>
+                </Link>
               ))}
             </Menu>
           </Box>
@@ -120,11 +117,13 @@ function NavBar() {
             {pages.map((page) => (
               <Button
                 className='nav-menu-btn'
-                key={page}
+                key={page.id}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                <Link className="nav-menu-link" to={page.link}>
+                  {page.name}
+                </Link>
               </Button>
             ))}
           </Box>
@@ -137,28 +136,6 @@ function NavBar() {
                 </div>
               </Link>
             </Tooltip>
-            {/* <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              // onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))} 
-              </Menu> */}
           </Box>
         </Toolbar>
       </Container>
