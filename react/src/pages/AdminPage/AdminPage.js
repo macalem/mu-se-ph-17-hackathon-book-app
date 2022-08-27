@@ -19,7 +19,7 @@ const GET_BOOKS = gql`
 `;
 
 function AdminPage() {
-  const [GetBooks, { loading, data }] = useLazyQuery(GET_BOOKS, {
+  const [GetBooks, { data }] = useLazyQuery(GET_BOOKS, {
     variables: {
       filter: "",
     },
