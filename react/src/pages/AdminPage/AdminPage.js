@@ -4,7 +4,7 @@ import "../LandingPage/LandingPage.css";
 import { gql, useLazyQuery } from "@apollo/client";
 
 import Nav from "../../components/navBar/NavBar";
-import PendingBookCards from "../../components/PendingBookCard/PendingBookCard";
+import BookCard from "../../components/card/BookCard";
 
 const GET_BOOKS = gql`
   query GetBooks($filter: String) {
@@ -14,6 +14,11 @@ const GET_BOOKS = gql`
       author
       cover
       status
+      description
+      published_date
+      dewey_decimal
+      isbn
+      file
     }
   }
 `;
@@ -37,10 +42,14 @@ function AdminPage() {
           return (
             book.status == "PENDING" && (
               <Grid xs={4}>
-                <PendingBookCards
+                <BookCard
                   title={book.name}
                   author={book.author}
-                  image={book.image}
+                  image={book.cover}
+                  description={book.description}
+                  published_date={book.published_date}
+                  dewey={book.dewey_decimal}
+                  isbn={book.isbn}
                 />
               </Grid>
             )
