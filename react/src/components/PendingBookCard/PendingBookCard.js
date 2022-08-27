@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import { Button, Grid, Box, ThemeProvider } from '@mui/material';
 import Theme from '../../const/theme';
 
-export default function RecipeReviewCard(props) {
+export default function PendingBookCard(props) {
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
