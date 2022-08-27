@@ -7,7 +7,7 @@
 }
 
 .photo-banner-holder img {
-    height: 100vh;
+    height: 860px;
 }
 
 .form-grp-seperator {
@@ -17,4 +17,8 @@
 .author-page-back-btn {
     background-color: #031424;
     padding: 10px;
+}
+
+.Radio-btn {
+    align-content: center;
 }
