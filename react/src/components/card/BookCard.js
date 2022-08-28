@@ -162,7 +162,7 @@ function BookCard(props) {
                         Download
                       </Button>
                     </ButtonGroup>
-                    {auth?.user && auth?.roles.includes(roles.Admin) ? (
+                    {props.status === "PENDING" && auth?.user && auth?.roles.includes(roles.Admin) ? (
                       <ButtonGroup>
                         <Button variant="contained" color="warning">
                           Accept

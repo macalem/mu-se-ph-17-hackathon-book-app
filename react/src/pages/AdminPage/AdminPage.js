@@ -33,6 +33,7 @@ function AdminPage() {
                   published_date={book.published_date}
                   dewey={book.dewey_decimal}
                   isbn={book.isbn}
+                  status={book.status}
                 />
               </Grid>
             )
