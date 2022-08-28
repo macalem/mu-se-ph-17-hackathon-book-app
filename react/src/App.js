@@ -9,6 +9,7 @@ import RequireAuth from "./components/RequireAuth/RequireAuth";
 import ROLES from "./const/roles";
 import "./App.css";
 import UnauthorizedLogin from "./components/UnauthorizedLogin/UnauthorizedLogin";
+import PageNotFound from "./pages/PageNotFound/PageNotFound";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
           {/* public routes */}
           <Route exact path="/" element={<Home />} />
           <Route path="/author" element={<AuthorPage />} />
-
+          <Route path="/404" element={<PageNotFound/>}/>
           <Route element={<UnauthorizedLogin />}>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
