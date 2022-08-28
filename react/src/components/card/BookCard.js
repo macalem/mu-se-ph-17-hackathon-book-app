@@ -84,6 +84,9 @@ function BookCard(props) {
               >
                 {props.author}
               </Typography>
+            {props.premium && <Typography  className="card-description-premium" component="div" variant="">
+                PREMIUM
+              </Typography> }
             </CardContent>
           </Box>
           <CardMedia
