@@ -10,7 +10,6 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import { Link, useNavigate } from "react-router-dom";
 import ROLES from "../../const/roles";
 import "./NavBar.css";
@@ -117,6 +116,7 @@ function NavBar() {
                 src="https://res.cloudinary.com/kthln10/image/upload/v1661620394/origLogo_qdjmem.png"
                 width={182}
                 height={58}
+                alt="Makabasa"
               />
             </Link>
           </Typography>

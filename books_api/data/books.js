@@ -39,7 +39,7 @@ export default [
         file: "http://fileshare/book3.pdf",
         isbn: "22222",
         cover: "/assets/image 8.png",
-        status: "APPROVE"
+        status: "APPROVED"
     },
     {
         id: "4",
@@ -53,6 +53,6 @@ export default [
         file: "http://fileshare/book3.pdf",
         isbn: "22222",
         cover: "/assets/image 8.png",
-        status: "REJECT"
+        status: "APPROVED"
     }
 ]
