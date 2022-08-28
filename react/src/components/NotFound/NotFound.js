@@ -8,8 +8,9 @@ import {
   ThemeProvider,
 } from "@mui/material";
 import Theme from "../../const/theme";
+import { Link } from "react-router-dom";
 
-function NoParam() {
+function NotFound() {
   return (
     <>
       <ThemeProvider theme={Theme}>
@@ -24,7 +25,12 @@ function NoParam() {
               />
             </Grid>
             <Grid item xs={6} sx={{ mt: "auto", mb: "auto" }}>
-              <Typography gutterBottom variant="h3" fontWeight={500} color="secondary">
+              <Typography
+                gutterBottom
+                variant="h3"
+                fontWeight={500}
+                color="secondary"
+              >
                 PAGE NOT FOUND
               </Typography>
               <Typography variant="body2" color="text.secondary">
@@ -36,7 +42,9 @@ function NoParam() {
               </Typography>
               <Container sx={{ mt: 2 }}>
                 <Button size="small" variant="contained" color="secondary">
-                  Home
+                  <Link className="nav-menu-link" to="/">
+                    Home
+                  </Link>
                 </Button>
               </Container>
             </Grid>
@@ -46,4 +54,4 @@ function NoParam() {
     </>
   );
 }
-export default NoParam;
+export default NotFound;

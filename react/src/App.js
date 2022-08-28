@@ -19,7 +19,7 @@ function App() {
           {/* public routes */}
           <Route exact path="/" element={<Home />} />
           <Route path="/author" element={<AuthorPage />} />
-          <Route path="/404" element={<PageNotFound/>}/>
+          
           <Route element={<UnauthorizedLogin />}>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
@@ -29,6 +29,8 @@ function App() {
           <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
             <Route path="/admin" element={<AdminPage />} />
           </Route>
+
+          <Route path="*" element={<PageNotFound/>}/>
         </Routes>
       </Router>
     </div>
