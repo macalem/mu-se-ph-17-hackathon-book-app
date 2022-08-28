@@ -1,10 +1,8 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { CssBaseline } from "@mui/material";
+import React from "react";
 import Container from "@mui/material/Container";
 import NoParam from "../../components/NoParamFound/NoParamFound";
 
-const PageNotFound = (props) => {
+function PageNotFound() {
   return (
     <>
       <Container maxWidth="md">

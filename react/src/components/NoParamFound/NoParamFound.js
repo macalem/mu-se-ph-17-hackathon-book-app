@@ -1,39 +1,49 @@
-import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
+import React from "react";
+import {
+  Button,
+  Typography,
+  CardMedia,
+  Grid,
+  Container,
+  ThemeProvider,
+} from "@mui/material";
+import Theme from "../../const/theme";
 
-import { Button, CardActionArea, CardActions } from '@mui/material';
-
- function NoParam() {
+function NoParam() {
   return (
-    <Card sx={{ maxWidth: 600 }}>
-        <CardMedia
-          component="img"
-          height="200"
-          image="/public/assets/noPage.png"
-          alt="404 Page Not Found"
-        />
-      <CardActionArea>
-        <CardContent>
-          <Typography gutterBottom variant="h3" component="div">
-              404 NOT FOUND!
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-          Page Not Found
-          We can't find the page you're looking for.
-          You can either return to the previous page,visit our homepage.
-          Visit Homepage
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Home
-        </Button>
-      </CardActions>
-    </Card>
+    <>
+      <ThemeProvider theme={Theme}>
+        <Container sx={{ mt: "auto", mb: "auto" }}>
+          <Grid container>
+            <Grid item xs={6}>
+              <CardMedia
+                component="img"
+                height="auto"
+                image={process.env.PUBLIC_URL + "/assets/noPage.png"}
+                alt="404 Page Not Found"
+              />
+            </Grid>
+            <Grid item xs={6} sx={{ mt: "auto", mb: "auto" }}>
+              <Typography gutterBottom variant="h3" fontWeight={500} color="secondary">
+                PAGE NOT FOUND
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                We can't find the page you're looking for.
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {" "}
+                You can either return to the previous page, visit our homepage.
+              </Typography>
+              <Container sx={{ mt: 2 }}>
+                <Button size="small" variant="contained" color="secondary">
+                  Home
+                </Button>
+              </Container>
+            </Grid>
+          </Grid>
+        </Container>
+      </ThemeProvider>
+    </>
   );
 }
-export default NoParam
+export default NoParam;
