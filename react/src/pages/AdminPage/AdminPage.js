@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import "../LandingPage/LandingPage.css";
-import { gql, useLazyQuery } from "@apollo/client";
+import { gql, useLazyQuery, useMutation  } from "@apollo/client";
 
 import Nav from "../../components/navBar/NavBar";
 import PendingBookCards from "../../components/PendingBookCard/PendingBookCard";
@@ -18,13 +18,31 @@ const GET_BOOKS = gql`
   }
 `;
 
+const UPDATE_BOOKS = gql`
+ mutation UpdateBookStatus($updateBookStatusInput: UpdateBookStatusRequest) {
+  updateBookStatus(input: $updateBookStatusInput) {
+      id
+      status
+    }
+  }
+`;
+
 function AdminPage() {
+  const [UpdateBookStatus, { booksData }] = useMutation(UPDATE_BOOKS);
   const [GetBooks, { loading, data }] = useLazyQuery(GET_BOOKS, {
     variables: {
       filter: "",
     },
   });
 
+  const handleButtonFunc = (data) => {
+    const params = data;
+    UpdateBookStatus(
+      { variables: { input: params } }
+    )
+    console.log("params", data)
+    return params;
+}
   useEffect(() => {
     GetBooks();
     console.log(data);
@@ -41,6 +59,9 @@ function AdminPage() {
                   title={book.name}
                   author={book.author}
                   image={book.image}
+                  id={book.id}
+
+                  handleButtonClick={handleButtonFunc}
                 />
               </Grid>
             )

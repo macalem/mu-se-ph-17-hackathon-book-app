@@ -69,6 +69,11 @@ const typeDefs = gql`
     email: String!
     password: String!
   }
+
+  input PendingBooksRequest {
+    id: String!
+   status: String!
+  }
 `;
 
 module.exports = typeDefs;
