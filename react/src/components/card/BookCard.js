@@ -9,8 +9,16 @@ import "./BookCard.css";
 import Theme from "../../const/theme";
 import useAuth from "../../hooks/useAuth";
 import roles from "../../const/roles";
+// three PDF below are dummy data
+import Pdf from '../../assets/Alamat-ng-Alitaptap.pdf';
+import Pdf2 from '../../assets/Noli-me-Tangere.pdf';
+import Pdf3 from '../../assets/Alamat-ng-Durian.pdf';
 
 function BookCard(props) {
+
+  let regexPropsName = props.title;
+  regexPropsName = regexPropsName.replace(/\s+/g, '-');
+
   const { auth } = useAuth();
 
   const [open, setOpen] = useState(false);
@@ -23,7 +31,12 @@ function BookCard(props) {
 
   const onButtonClick = () => {
     // using Java Script method to get PDF file
-    fetch(props.file).then((response) => {
+    // fetch(props.file).then((response) => {
+    fetch(regexPropsName === "Alamat-ng-Alitaptap" ? 
+    Pdf : regexPropsName === "Noli-me-Tangere" ? 
+    Pdf2 : regexPropsName === "Alamat-ng-Durian" ? 
+    Pdf3 : "")
+    .then((response) => {
       response.blob().then((blob) => {
         // Creating new object of PDF file
         const fileURL = window.URL.createObjectURL(blob);
@@ -152,7 +165,11 @@ function BookCard(props) {
                   <Grid item xs={12} sx={{ margin: "auto" }}>
                     <ButtonGroup>
                       <Button variant="contained" color="warning">
-                        Read
+                        {/* Read */}
+                      <a href = {regexPropsName === "Alamat-ng-Alitaptap" ? 
+                      Pdf : regexPropsName === "Noli-me-Tangere" ? 
+                      Pdf2 : regexPropsName === "Alamat-ng-Durian" ? 
+                      Pdf3 : ""} target="_blank">Read</a>
                       </Button>
                       <Button
                         variant="contained"
