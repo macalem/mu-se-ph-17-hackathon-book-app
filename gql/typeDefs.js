@@ -6,6 +6,7 @@ const typeDefs = gql`
     book(id: ID!): Book
     users: [User]
     user(id: ID!): User
+    genres: [Genre]
   }
   
 
@@ -29,6 +30,11 @@ const typeDefs = gql`
     name: String
     email: String
     roles: [String]
+  }
+
+  type Genre {
+    id: ID
+    name: String
   }
 
   input LoginInput {

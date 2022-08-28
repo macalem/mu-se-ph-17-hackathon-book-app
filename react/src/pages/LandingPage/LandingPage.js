@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Nav from "../../components/navBar/NavBar";
 import LandingHeader from "../../components/LandingHeader/LandingHeader";
 import SearchBar from "../../components/SearchBar/SearchBar";

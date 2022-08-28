@@ -4,6 +4,7 @@ import logger from "morgan";
 const { PORT = 5000 } = process.env;
 
 import booksRouter from "./routes/books.js";
+import genresRouter from "./routes/genres.js";
 
 var app = express();
 
@@ -12,8 +13,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+app.use("/books/genres", genresRouter);
 app.use("/books", booksRouter);
-app.use("/genres", booksRouter);
 
 app.get("*", function (req, res) {
   res.status(404).send("404 not found");

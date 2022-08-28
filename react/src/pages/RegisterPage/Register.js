@@ -1,5 +1,5 @@
 import { forwardRef, useState } from "react";
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -20,6 +20,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import "./Register.css";
 
+import gqlAPI from "../../api/gql";
 import useAuth from "../../hooks/useAuth";
 
 import Nav from "../../components/navBar/NavBar";
@@ -44,23 +45,10 @@ const Alert = forwardRef(function Alert(props, ref) {
 
 const theme = createTheme();
 
-// Define mutation
-const REGISTER_READER = gql`
-  mutation Register($input: RegisterUserRequest!) {
-    register(input: $input) {
-      id
-      name
-      email
-      roles
-    }
-  }
-`;
-
 export default function Register() {
   const { setAuth } = useAuth();
 
   const navigate = useNavigate();
-  const from = "/";
 
   const formSchema = Yup.object().shape({
     name: Yup.string()
@@ -85,7 +73,7 @@ export default function Register() {
 
   const [disableSubmitButton, setDisableSubmitButton] = useState(false);
 
-  const [registerReader] = useMutation(REGISTER_READER, {
+  const [registerReader] = useMutation(gqlAPI.mutations.REGISTER_READER, {
     onCompleted: (result) => {
       console.log(result);
 
@@ -102,7 +90,7 @@ export default function Register() {
       setDisableSubmitButton(false);
       reset();
 
-      navigate(from, { replace: true });
+      navigate("/", { replace: true });
     },
     onError: (error) => {
       console.log(error);

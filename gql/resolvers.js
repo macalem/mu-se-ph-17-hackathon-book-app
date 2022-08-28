@@ -41,6 +41,14 @@ const Query = {
       return null;
     }
   },
+
+  genres: async (parent, args, context, info) => {
+    try {
+      return await (await fetch(`${BOOKS_API_URL}/books/genres`)).json();
+    } catch (e) {
+      return null;
+    }
+  },
 };
 
 const Mutation = {

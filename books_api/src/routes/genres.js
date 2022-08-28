@@ -1,5 +1,5 @@
 import express from "express";
-import GenreService from "../services/genre.js"
+import GenreService from "../services/genres.js"
 
 var router = express.Router();
 

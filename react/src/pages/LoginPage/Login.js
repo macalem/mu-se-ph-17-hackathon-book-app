@@ -1,5 +1,5 @@
 import { forwardRef, useState } from "react";
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -20,6 +20,7 @@ import MuiAlert from "@mui/material/Alert";
 
 import "./Login.css";
 
+import gqlAPI from "../../api/gql";
 import roles from "../../const/roles";
 import useAuth from "../../hooks/useAuth";
 import Footer from "../../components/footer/Footer";
@@ -44,25 +45,12 @@ const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-// Define mutation
-const LOGIN = gql`
-  mutation Login($input: LoginInput!) {
-    login(input: $input) {
-      id
-      name
-      email
-      roles
-    }
-  }
-`;
-
 const theme = createTheme();
 
 export default function Login() {
   const { setAuth } = useAuth();
 
   const navigate = useNavigate();
-  const from = "/";
 
   const formSchema = Yup.object().shape({
     email: Yup.string().required("Email is required").email("Invalid format"),
@@ -79,7 +67,7 @@ export default function Login() {
 
   const [disableSubmitButton, setDisableSubmitButton] = useState(false);
 
-  const [login] = useMutation(LOGIN, {
+  const [login] = useMutation(gqlAPI.mutations.LOGIN, {
     onCompleted: (result) => {
       console.log(result);
 
@@ -93,7 +81,7 @@ export default function Login() {
       setDisableSubmitButton(false);
       reset();
 
-      navigate(result.login.roles.includes(roles.Admin) ? "/admin" : from, {
+      navigate(result.login.roles.includes(roles.Admin) ? "/admin" : "/", {
         replace: true,
       });
     },
