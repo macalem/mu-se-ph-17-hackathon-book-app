@@ -133,7 +133,7 @@ const BookModal = ({
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box sx={{ ...style, width: 700 }}>
+        <Box sx={{ ...style, width: 700, position: "absolute", overflowY: "scroll", maxHeight: "90%"}}>
           <Grid container columnSpacing={3}>
             <Grid item xs={6}>
               <CardMedia
