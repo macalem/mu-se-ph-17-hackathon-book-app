@@ -5,7 +5,11 @@ import roles from "../../data/roles.js";
 
 const getAllUsers = () => users;
 
-const getUserByID = (id) => users.find((user) => user.id === id);
+const getUserByID = (id) => {
+  if (!id) throw new Error("Missing required parameter");
+  
+  return users.find((user) => user.id === id);
+}
 
 const createUser = async ({ name, email, password }) => {
   // validate params
