@@ -51,7 +51,7 @@ function BookCard(props) {
           <CardMedia
             component="img"
             sx={{ width: "100%", height: "100%", objectFit: "contain" }}
-            image={props.image}
+            image={props.image || "/assets/noimage.png"}
             alt={props.title}
           />
           </CardContent>

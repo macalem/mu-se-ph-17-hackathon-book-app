@@ -37,6 +37,7 @@ router.post("/", async (req, res) => {
     genre_id,
     premium,
     file,
+    status
   } = req.body;
 
   // validate body params
@@ -55,6 +56,7 @@ router.post("/", async (req, res) => {
       genre_id,
       premium,
       file,
+      status
     });
     return res.json(result);
   } catch (err) {

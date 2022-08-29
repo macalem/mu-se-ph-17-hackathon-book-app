@@ -53,6 +53,16 @@ const mutations = {
     }
   `,
 
+  ADD_BOOK: gql`
+    mutation AddBook($input: AddBookRequest) {
+      addBook(input: $input) {
+        id
+        name
+        isbn
+      }
+    }
+  `,
+
   UPDATE_BOOK_STATUS: gql`
     mutation UpdateBookStatus($input: UpdateBookStatusRequest) {
       updateBookStatus(input: $input) {
@@ -62,6 +72,6 @@ const mutations = {
   `,
 };
 
-const gqlAPI = { query, mutations }
+const gqlAPI = { query, mutations };
 
 export default gqlAPI;

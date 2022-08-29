@@ -33,6 +33,7 @@ const createBook = ({
   premium,
   file,
   isbn,
+  status
 }) => {
   // validate params
   if (!author || !name || !file || !isbn) {
@@ -55,6 +56,7 @@ const createBook = ({
     premium: premium,
     file: file,
     isbn: isbn,
+    status: status,
   };
 
   booksData.push(newBook);

@@ -56,10 +56,11 @@ const typeDefs = gql`
     description: String
     author: String!
     published_date: String
-    genre_id: Int
+    genre_id: String
     premium: Boolean
     file: String
     isbn: String!
+    status: String
   }
 
   input UpdateBookStatusRequest {
