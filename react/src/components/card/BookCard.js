@@ -49,7 +49,7 @@ function BookCard(props) {
           <CardMedia
             component="img"
             sx={{ width: "50%", height: "auto" }}
-            image={props.image}
+            image={props.image || "/assets/noimage.png"}
             alt={props.title}
           />
         </Card>

@@ -84,6 +84,7 @@ export default function AdminPage() {
                     isbn={book.isbn}
                     status={book.status}
                     file={book.file}
+                    premium={book.premium}
                     updateBookStatus={updateBookStatus}
                   />
                 </Grid>
