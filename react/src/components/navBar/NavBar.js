@@ -17,18 +17,23 @@ import "./NavBar.css";
 import useAuth from "../../hooks/useAuth";
 import useLogout from "../../hooks/useLogout";
 
-const pages = [
-  { id: 1, name: "Home", link: "/", roles: [] },
-  { id: 2, name: "About Us", link: "/register", roles: [] },
-  { id: 3, name: "Author", link: "/author", roles: [] },
-  { id: 4, name: "Admin", link: "/admin", roles: [ROLES.Admin] },
-];
-
 function NavBar() {
   const { auth } = useAuth();
-
+  
   const navigate = useNavigate();
   const logout = useLogout();
+
+  const pages = auth?.user ? (auth?.user?.name !== "Admin" ? [
+    { id: 1, name: "Home", link: "/", roles: [ROLES.User] },
+    { id: 2, name: "About Us", link: "/register", roles: [] },
+    { id: 3, name: "Author", link: "/author", roles: [] }
+  ] : [
+    { id: 2, name: "About Us", link: "/register", roles: [] },
+    { id: 3, name: "Admin", link: "/admin", roles: [ROLES.Admin] }
+  ]) : [
+    { id: 1, name: "Home", link: "/", roles: [] },
+    { id: 2, name: "About Us", link: "/about", roles: [] }
+  ];
 
   const signOut = async () => {
     await logout();
@@ -44,6 +49,8 @@ function NavBar() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+  console.log(auth.user);
 
   return (
     <AppBar className="nav-body" position="static">

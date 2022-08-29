@@ -114,7 +114,6 @@ export default [
 
             {
             id: "11",
-        
             name:  "Po-on",
             dewey_decimal: "2051-231",
             description: "Po-on A Novel is a novel written by Francisco Sionil José, a Filipino English-language writer. This is the original title when it was first published in the Philippines in the English language. In the United States, it was published under the title Dusk: A Novel",  
@@ -212,4 +211,4 @@ export default [
             status: "APPROVED"
             }		
 
-]
+];

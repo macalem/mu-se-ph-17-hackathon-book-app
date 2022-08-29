@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { useLazyQuery, useMutation } from "@apollo/client";
-import { Link, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 
@@ -29,11 +29,17 @@ import {
   FormControlLabel,
   TextareaAutosize,
 } from "@mui/material";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 import "./AuthorPage.css";
 import Footer from "../../components/footer/Footer";
 
 import gqlAPI from "../../api/gql";
+
+const Alert = forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 function AuthorPage() {
   const [GetGenres, { data: dataGenres }] = useLazyQuery(
@@ -57,15 +63,13 @@ function AuthorPage() {
     author: Yup.string()
       .required("Author is required")
       .min(3, "Author must be atleast 3 characters long"),
-    published_date: Yup.string().required("Published Date is required"),
-    // genre_id: Yup.string().required("Genre is required"),
-    // premium: Yup.string().required("Premium type is required"),
+    published_date: Yup.string(),
+    genre_id: Yup.string().required("Genre is required"),
+    premium: Yup.string(),
     file: Yup.string()
       .required("Book Link is required")
       .min(5, "Book Link must be atleast 5 characters long"),
-    // description: Yup.string()
-    //   .required("Description is required")
-    //   .min(5, "Description must be atleast 5 characters long"),
+    description: Yup.string(),
   });
 
   const formOptions = { resolver: yupResolver(formSchema) };
@@ -73,33 +77,78 @@ function AuthorPage() {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
-    watch
+    control,
+    // reset
   } = useForm(formOptions);
 
-  const [date, setDate] = useState(null);
-  const [genre, setGenre] = useState("");
-
-  // Function for getting the value of genre select field...
-  const handleChangeGenre = (event) => {
-    setGenre(event.target.value);
+  const convertPublishedDate = (publishedDate) => {
+    const pDate = new Date(publishedDate);
+    return `${pDate.getFullYear()}/${pDate.getMonth()}/${pDate.getDay()}`;
   };
+
+  const [disableSubmitButton, setDisableSubmitButton] = useState(false);
+
+  const [addBook] = useMutation(gqlAPI.mutations.ADD_BOOK, {
+    onCompleted: (result) => {
+      console.log(result);
+
+      setSnackBarSeverity("success");
+      setSnackBarMessage("Book has been submitted!");
+      setOpenSnackbar(true);
+      setDisableSubmitButton(false);
+      // reset();
+    },
+    onError: (error) => {
+      console.log(error);
+      setSnackBarSeverity("error");
+      setSnackBarMessage(error.message);
+      setOpenSnackbar(true);
+      setDisableSubmitButton(false);
+    },
+  });
 
   // Function for getting the values of the form and console loggin it for the api developer's reference...
   const onSubmit = (form) => {
-    // setSnackBarMessage("");
-    // setDisableSubmitButton(true);
-    // login({
-    //   variables: {
-    //     input: { email: form.email, password: form.password },
-    //   },
-    // });
-
+    if (form.published_date) {
+      form.published_date = convertPublishedDate(form.published_date);
+    }
+    form.premium = form.premium === "true" ? true : false;
+    form.status = "PENDING";
     console.log(form);
+
+    setSnackBarMessage("");
+    setDisableSubmitButton(true);
+    addBook({
+      variables: {
+        input: { ...form },
+      },
+    });
+  };
+
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackBarMessage, setSnackBarMessage] = useState();
+  const [snackBarSeverity, setSnackBarSeverity] = useState("success");
+
+  const handleSnackbarClose = () => {
+    setOpenSnackbar(false);
   };
 
   return (
     <>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={openSnackbar}
+        onClose={handleSnackbarClose}
+        autoHideDuration={6000}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={snackBarSeverity}
+          sx={{ width: "100%" }}
+        >
+          {snackBarMessage}
+        </Alert>
+      </Snackbar>
       <div className="author-page-back-btn">
         <Grid container spacing={12}>
           <Grid xs={2}>
@@ -114,7 +163,6 @@ function AuthorPage() {
       <div className="author-form-banner">
         <h2>Author Form</h2>
       </div>
-      
       <Container fixed>
         <Grid container spacing={12}>
           <Grid className="photo-banner-holder" xs={6}>
@@ -125,196 +173,183 @@ function AuthorPage() {
           </Grid>
           <Grid xs={6}>
             <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)}>
-              <FormGroup>
-                <FormControl fullWidth>
-                  <TextField
-                    variant="standard"
-                    margin="normal"
-                    fullWidth
-                    id="name"
-                    label="Book Name"
-                    name="name"
-                    autoComplete="name"
-                    autoFocus
-                    aria-describedby="dd-helper-text"
+              <FormGroup className="form-grp-seperator">
+                <FormControl error={!!errors?.name}>
+                  <InputLabel htmlFor="book-name">Book Name *</InputLabel>
+                  <Input
                     {...register("name")}
-                    error={!!errors?.name}
-                    helperText={
-                      errors?.name
-                        ? errors.name.message
-                        : "Enter your book title."
-                    }
+                    id="name"
+                    aria-describedby="bookName-helper-text"
+                    type="text"
                   />
+                  <FormHelperText id="bookName-helper-text">
+                    {errors?.name
+                      ? errors.name.message
+                      : "Enter your book title."}
+                  </FormHelperText>
                 </FormControl>
               </FormGroup>
-              <FormGroup>
-                <FormControl fullWidth>
-                  <TextField
-                    variant="standard"
-                    margin="normal"
-                    fullWidth
-                    id="dewey_decimal"
-                    label="Dewey Decimal"
-                    name="dewey_decimal"
-                    autoComplete="dewey_decimal"
-                    aria-describedby="dd-helper-text"
+              <FormGroup className="form-grp-seperator">
+                <FormControl error={!!errors?.dewey_decimal}>
+                  <InputLabel htmlFor="dewey-decimal">
+                    Dewy Decimal *
+                  </InputLabel>
+                  <Input
                     {...register("dewey_decimal")}
-                    error={!!errors?.dewey_decimal}
-                    helperText={
-                      errors?.dewey_decimal
-                        ? errors.dewey_decimal.message
-                        : "Enter your dewy decimal number."
-                    }
+                    id="dewey_decimal"
+                    aria-describedby="dd-helper-text"
+                    type="number"
                   />
+                  <FormHelperText id="dd-helper-text">
+                    {errors?.name
+                      ? errors.name.message
+                      : "Enter your dewy decimal number."}
+                  </FormHelperText>
                 </FormControl>
               </FormGroup>
-              <FormGroup>
-                <FormControl fullWidth>
-                  <TextField
-                    variant="standard"
-                    margin="normal"
-                    fullWidth
-                    id="isbn"
-                    label="ISBN"
-                    name="isbn"
-                    autoComplete="isbn"
-                    aria-describedby="dd-helper-text"
+              <FormGroup className="form-grp-seperator">
+                <FormControl error={!!errors?.isbn}>
+                  <InputLabel htmlFor="ISBN">ISBN *</InputLabel>
+                  <Input
                     {...register("isbn")}
-                    error={!!errors?.isbn}
-                    helperText={
-                      errors?.isbn
-                        ? errors.isbn.message
-                        : "Enter your book ISBN."
-                    }
+                    id="isbn"
+                    aria-describedby="isbn-helper-text"
+                    type="number"
                   />
+                  <FormHelperText id="isbn-helper-text">
+                    {errors?.name
+                      ? errors.name.message
+                      : "Enter your book ISBN."}
+                  </FormHelperText>
                 </FormControl>
               </FormGroup>
-              <FormGroup>
-                <FormControl fullWidth>
-                  <TextField
-                    variant="standard"
-                    margin="normal"
-                    fullWidth
-                    id="author"
-                    label="Author"
-                    name="author"
-                    autoComplete="author"
-                    aria-describedby="dd-helper-text"
+              <FormGroup className="form-grp-seperator">
+                <FormControl error={!!errors?.author}>
+                  <InputLabel htmlFor="Author">Author *</InputLabel>
+                  <Input
                     {...register("author")}
-                    error={!!errors?.author}
-                    helperText={
-                      errors?.author
-                        ? errors.author.message
-                        : "Enter your pen-name/name."
-                    }
+                    id="author"
+                    aria-describedby="author-helper-text"
+                    type="text"
+                  />
+                  <FormHelperText id="author-helper-text">
+                    {errors?.name
+                      ? errors.name.message
+                      : "Enter your pen-name/name."}
+                  </FormHelperText>
+                </FormControl>
+              </FormGroup>
+              <FormGroup className="form-grp-seperator">
+                <FormControl>
+                  <Controller
+                    name="published_date"
+                    control={control}
+                    defaultValue={null}
+                    render={({ field: { value, onChange, ...restField } }) => (
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker
+                          label="Published Date"
+                          value={value}
+                          onChange={(newValue) => {
+                            onChange(newValue);
+                          }}
+                          InputProps={{
+                            readOnly: true,
+                          }}
+                          renderInput={(params) => <TextField {...params} />}
+                        />
+                      </LocalizationProvider>
+                    )}
                   />
                 </FormControl>
               </FormGroup>
-              <FormGroup>
-                <FormControl fullWidth>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker
-                      label="Publish Date"
-                      value={date}
-                      onChange={(newValue) => {
-                        setDate(newValue);
-                      }}
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          margin="normal"
-                          variant="standard"
-                          {...register("published_date")}
-                          error={!!errors?.published_date}
-                          helperText={
-                            errors?.published_date
-                              ? errors.published_date.message
-                              : null
-                          }
-                        />
-                      )}
-                    />
-                  </LocalizationProvider>
+              <FormGroup className="form-grp-seperator">
+                <FormControl fullWidth error={!!errors?.genre_id}>
+                  <InputLabel id="genre-select-label">Genre *</InputLabel>
+                  <Controller
+                    control={control}
+                    name="genre_id"
+                    rules={{ required: true }}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <Select
+                        {...field}
+                        labelId="genre-select-label"
+                        className="genre-select-label"
+                        id="genre-select"
+                        label="Genre"
+                      >
+                        {dataGenres?.genres &&
+                          dataGenres.genres.map((genre) => (
+                            <MenuItem key={genre.id} value={genre.id}>
+                              {genre.name}
+                            </MenuItem>
+                          ))}
+                      </Select>
+                    )}
+                  />
+                  <FormHelperText id="author-helper-text">
+                    {errors?.genre_id
+                      ? errors.genre_id.message
+                      : "Select your book's genre."}
+                  </FormHelperText>
                 </FormControl>
               </FormGroup>
-              <FormGroup>
-                <FormControl fullWidth>
-                  <InputLabel id="genre-select-label">Genre</InputLabel>
-                  <Select
-                    variant="standard"
-                    labelId="genre-select-label"
-                    className="genre-select-label"
-                    id="genre-select"
-                    value={genre}
-                    label="Genre"
-                    onChange={handleChangeGenre}
-                  >
-                    {dataGenres?.genres &&
-                      dataGenres.genres.map((genre) => (
-                        <MenuItem key={genre.id} value={genre.id}>
-                          {genre.name}
-                        </MenuItem>
-                      ))}
-                  </Select>
-                </FormControl>
-              </FormGroup>
-              <FormGroup>
-                <FormControl fullWidth>
+              <FormGroup className="form-grp-seperator">
+                <FormControl>
                   <FormLabel
                     className="form-radio-buttons-label"
                     id="PT-row-radio-buttons-group-label"
                   >
                     Premium Type
                   </FormLabel>
-                  <RadioGroup
-                    row
+                  <Controller
+                    control={control}
+                    name="premium"
+                    defaultValue="true"
                     aria-labelledby="PT-row-radio-buttons-group-label"
-                    name="row-radio-buttons-group"
-                  >
-                    <FormControlLabel
-                      value="0"
-                      control={<Radio />}
-                      label="Free"
-                    />
-                    <FormControlLabel
-                      value="1"
-                      control={<Radio />}
-                      label="Premium"
-                    />
-                  </RadioGroup>
+                    row
+                    render={({ field }) => (
+                      <RadioGroup {...field} row>
+                        <FormControlLabel
+                          value="false"
+                          control={<Radio />}
+                          label="Free"
+                        />
+                        <FormControlLabel
+                          value="true"
+                          control={<Radio />}
+                          label="Premium"
+                        />
+                      </RadioGroup>
+                    )}
+                  />
                 </FormControl>
               </FormGroup>
-              <FormGroup>
-                <FormControl fullWidth>
-                  <TextField
-                    variant="standard"
-                    margin="normal"
-                    fullWidth
-                    id="file"
-                    label="Book Link"
-                    name="file"
-                    autoComplete="file"
-                    aria-describedby="dd-helper-text"
+              <FormGroup className="form-grp-seperator">
+                <FormControl error={!!errors?.file}>
+                  <InputLabel htmlFor="bookL">Book Link</InputLabel>
+                  <Input
                     {...register("file")}
-                    error={!!errors?.file}
-                    helperText={
-                      errors?.file
-                        ? errors.file.message
-                        : "Enter your link of the e-book copy."
-                    }
+                    id="file"
+                    aria-describedby="file-helper-text"
                   />
+                  <FormHelperText id="file-helper-text">
+                    {errors?.name
+                      ? errors.name.message
+                      : "Enter your link of the e-book copy."}
+                  </FormHelperText>
                 </FormControl>
               </FormGroup>
-              <FormGroup>
-                <FormControl fullWidth>
-                  <TextareaAutosize
-                    aria-label="description textarea"
-                    placeholder="Description"
-                    style={{ width: `100%` }}
-                    name="description"
-                    minRows={5}
-                  />
-                </FormControl>
+              <FormGroup className="form-grp-seperator">
+                <TextareaAutosize
+                  aria-label="description textarea"
+                  placeholder="Description"
+                  style={{ width: `100%` }}
+                  name="description"
+                  minRows={5}
+                  {...register("description")}
+                />
               </FormGroup>
               <Button
                 style={{ backgroundColor: "#CF6766" }}
@@ -322,6 +357,7 @@ function AuthorPage() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                disabled={disableSubmitButton}
               >
                 Submit
               </Button>
