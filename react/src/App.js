@@ -17,19 +17,22 @@ function App() {
         <Routes>
           {/* public routes */}
           <Route exact path="/" element={<Home />} />
-          <Route path="/author" element={<AuthorPage />} />
-          
+
           <Route element={<UnauthorizedLogin />}>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Route>
 
           {/* we want to protect these routes */}
+          <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+            <Route path="/author" element={<AuthorPage />} />
+          </Route>
+
           <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
             <Route path="/admin" element={<AdminPage />} />
           </Route>
 
-          <Route path="*" element={<PageNotFound/>}/>
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Router>
     </div>

@@ -306,7 +306,7 @@ function AuthorPage() {
                   <Controller
                     control={control}
                     name="premium"
-                    defaultValue="true"
+                    defaultValue="false"
                     aria-labelledby="PT-row-radio-buttons-group-label"
                     row
                     render={({ field }) => (

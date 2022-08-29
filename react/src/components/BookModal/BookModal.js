@@ -139,7 +139,7 @@ const BookModal = ({
               <CardMedia
                 component="img"
                 sx={{ width: "500", height: "auto" }}
-                image={image}
+                image={image || "/assets/noimage.png"}
                 alt="Noli Me Tangere"
               />
             </Grid>

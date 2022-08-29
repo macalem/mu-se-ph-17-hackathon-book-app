@@ -10,16 +10,16 @@ export default [
     },
     {
         id: "2",
-        name: "Visitor 1",
-        email: "visitor1@gmail.com",
-        password: "12312",
+        name: "Ako Si Reader",
+        email: "reader@test.com",
+        password: "$2b$10$JQ4gyPF6RJPp45aapgkwneXdNqvJEhM8e.2vyZlr.bjvJA3f/mf66",
         roles: [ROLES.User]
     },
     {
         id: "3",
-        name: "Visitor 2",
-        email: "visitor2@gmail.com",
-        password: "12312",
+        name: "Im Author",
+        email: "author@test.com",
+        password: "$2b$10$QiWaALY5yJAGYTVce0UPmeMhKyQJqnxOiEsRQ7jy5GL7RIo.1HCIO",
         roles: [ROLES.User]
     }
 ]

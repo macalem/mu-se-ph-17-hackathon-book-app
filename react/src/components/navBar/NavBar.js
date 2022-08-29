@@ -26,13 +26,13 @@ function NavBar() {
   const pages = auth?.user ? (auth?.user?.name !== "Admin" ? [
     { id: 1, name: "Home", link: "/", roles: [ROLES.User] },
     { id: 2, name: "About Us", link: "/register", roles: [] },
+    { id: 3, name: "Author", link: "/author", roles: [] }
   ] : [
     { id: 2, name: "About Us", link: "/register", roles: [] },
-    { id: 3, name: "Admin", link: "/admin", roles: [ROLES.Admin] },
+    { id: 3, name: "Admin", link: "/admin", roles: [ROLES.Admin] }
   ]) : [
     { id: 1, name: "Home", link: "/", roles: [] },
-    { id: 2, name: "About Us", link: "/register", roles: [] },
-    { id: 3, name: "Author", link: "/author", roles: [] },
+    { id: 2, name: "About Us", link: "/about", roles: [] }
   ];
 
   const signOut = async () => {

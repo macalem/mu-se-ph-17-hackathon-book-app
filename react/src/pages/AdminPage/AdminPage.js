@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { useLazyQuery } from "@apollo/client";
 
 import Snackbar from "@mui/material/Snackbar";
@@ -13,16 +13,26 @@ import Footer from "../../components/footer/Footer";
 
 import gqlAPI from "../../api/gql";
 import { Typography } from "@mui/material";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from '@mui/material/Box';
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
+const a11yProps = (index) => {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
 export default function AdminPage() {
   const [GetBooks, { data, refetch }] = useLazyQuery(gqlAPI.query.GET_BOOKS, {
     variables: {
       filter: "",
-    },
+    }
   });
 
   useEffect(() => {
@@ -47,6 +57,21 @@ export default function AdminPage() {
     });
   };
 
+  const [tabIndex, setTabIndex] = useState(0);
+  const [status, setStatus] = useState("PENDING");
+
+  const handleChange = (event, newValue) => {
+    setTabIndex(newValue);
+
+    if (newValue === 0) {
+      setStatus("PENDING");
+    } else if (newValue === 1) {
+      setStatus("APPROVED");
+    } else if (newValue === 2) {
+      setStatus("REJECTED");
+    }
+  };
+
   return (
     <>
       <Snackbar
@@ -68,10 +93,21 @@ export default function AdminPage() {
         <Typography variant="h4" component="h4">
           Submitted Books
         </Typography>
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Tabs
+            value={tabIndex}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+          >
+            <Tab label="Pending" {...a11yProps(0)} />
+            <Tab label="Approved" {...a11yProps(1)} />
+            <Tab label="Rejected" {...a11yProps(2)} />
+          </Tabs>
+        </Box>
         <Grid container spacing={12} id="grid-container">
           {data?.books.map((book) => {
             return (
-              book.status === "PENDING" && (
+              book.status === status && (
                 <Grid xs={4} key={book.id}>
                   <BookCard
                     bookID={book.id}

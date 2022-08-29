@@ -4,15 +4,31 @@ import GenreService from "./genres.js";
 import BOOK_STATUSES from "../constants/status.js";
 
 // Fetch All Books
-const getAllBooks = () => {
+const getAllBooks = (filter, paging) => {
   const genres = GenreService.getAllGenres();
 
-  const books = booksData.map((book) => {
+  let books = booksData.map((book) => {
     return {
       ...book,
       genre: genres.find((genre) => genre.id == book.genre_id).name,
     };
   });
+
+  if (filter) {
+    filter = filter.trim().toLowerCase();
+    books = books.filter(
+      (book) =>
+        book.author.trim().toLowerCase().includes(filter) ||
+        book.name.trim().toLowerCase().includes(filter) ||
+        book.genre.trim().toLowerCase().includes(filter)
+    );
+  }
+
+  if (paging?.limit) {
+    const offset = paging.offset || 0;
+    const limit = paging.limit || 9;
+    books = books.splice(offset, limit)
+  }
 
   return books;
 };
@@ -64,20 +80,6 @@ const createBook = ({
   return newBook;
 };
 
-// Fetch list of books by filter
-const getFilteredBooks = (filter) => {
-  filter = filter.trim().toLowerCase();
-  
-  const books = getAllBooks().filter(
-    (book) =>
-      book.author.trim().toLowerCase().includes(filter) ||
-      book.name.trim().toLowerCase().includes(filter) ||
-      book.genre.trim().toLowerCase().includes(filter)
-  );
-
-  return books;
-};
-
 // Update status of a book
 const updateBookStatus = ({ id, status }) => {
   if (!id || !status) throw new Error("Missing required parameters");
@@ -95,6 +97,5 @@ export default {
   getAllBooks,
   getBookByID,
   createBook,
-  getFilteredBooks,
   updateBookStatus,
 };
