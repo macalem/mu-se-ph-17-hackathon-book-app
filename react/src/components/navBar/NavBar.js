@@ -50,8 +50,6 @@ function NavBar() {
     setAnchorElNav(null);
   };
 
-  console.log(auth.user);
-
   return (
     <AppBar className="nav-body" position="static">
       <Container maxWidth="xl">
