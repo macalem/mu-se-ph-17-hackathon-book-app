@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/LandingPage/LandingPage";
 import Login from "./pages/LoginPage/Login";
 import Register from "./pages/RegisterPage/Register";
+import AboutUs from "./pages/AboutUsPage/AboutUs";
 import AdminPage from "./pages/AdminPage/AdminPage";
 import AuthorPage from "./pages/AuthorPage/AuthorPage";
 import RequireAuth from "./components/RequireAuth/RequireAuth";
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           {/* public routes */}
           <Route exact path="/" element={<Home />} />
+          <Route exact path="/about" element={<AboutUs />} />
 
           <Route element={<UnauthorizedLogin />}>
             <Route path="/login" element={<Login />} />
