@@ -5,7 +5,10 @@ var router = express.Router();
 
 /* GET books listing. */
 router.get("/", async (req, res) => {
-  res.json(UserService.getAllUsers());
+  res.json(UserService.getAllUsers().map(user => {
+    delete user.password
+    return user;
+  }));
 });
 
 router.get("/:id", async (req, res) => {
@@ -13,6 +16,8 @@ router.get("/:id", async (req, res) => {
 
   try {
     const user = UserService.getUserByID(id);
+
+    delete user.password;
 
     return res.json(user);
   } catch (e) {
