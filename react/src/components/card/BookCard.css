@@ -1,9 +1,11 @@
 .book-card {
     cursor: pointer;
+    /* width: 100%;
+    height: auto; */
 }
 
 .book-card-premium {
-    border: 5px solid gold;
+    border: 1.5px solid #ffd357;
     cursor: pointer;
 }
 
@@ -13,7 +15,7 @@
 
 .card-description-premium {
     color: #d5b406 !important;
-    font-size: 12px;
+    font-size: 10px;
     padding-top: 10px;
     text-align: center;
 }
@@ -23,10 +25,10 @@
 }
 
 .card-text-title {
-    font-size: 1.2rem;
+    font-size: 12px !important;
 }
 
 .card-text-author {
-    font-size: .8rem !important;
+    font-size: 10px !important;
     line-height: 1.4 !important;
 }

@@ -8,6 +8,7 @@ import { useState } from "react";
 import "./BookCard.css";
 import Theme from "../../const/theme";
 import BookModal from "../BookModal/BookModal";
+import { height } from "@mui/system";
 
 function BookCard(props) {
   const [open, setOpen] = useState(false);
@@ -25,7 +26,7 @@ function BookCard(props) {
       <ThemeProvider theme={Theme}>
         <Card
           onClick={() => handleOpen()}
-          sx={{ display: "flex" }}
+          sx={{ display: "flex", maxHeight: 200, width: 200}}
           className={props.premium ? "book-card-premium" : "book-card"}
         >
           <Box sx={{ display: "flex", flexDirection: "column", height: "300px", textAlign:"left" }}>
@@ -46,14 +47,15 @@ function BookCard(props) {
               </Typography> }
             </CardContent>
           </Box>
+          <CardContent>
           <CardMedia
             component="img"
-            sx={{ width: "50%", height: "auto" }}
+            sx={{ width: "100%", height: "100%", objectFit: "contain" }}
             image={props.image || "/assets/noimage.png"}
             alt={props.title}
           />
+          </CardContent>
         </Card>
-
         <BookModal
           open={open}
           handleClose={handleClose}

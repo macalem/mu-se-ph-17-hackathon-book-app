@@ -1,0 +1,176 @@
+{
+    "swagger": "2.0",
+    "definition": {
+        "openapi": "3.0.0",
+        "info": {
+            "title": "users api",
+            "version": "1.0.0"
+        }
+    },
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "apis": [
+        ".routes/*.js"
+    ],
+    "basePath": "/",
+    "paths": {
+        "/users": {
+            "get": {
+                "summary": "Get all users",
+                "description": "Retrieves the list of users",
+                "responses": {
+                    "200": {
+                        "description": "The list of users",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/User"
+                            }
+                        }
+                    }
+                }
+            },
+
+            "post": {
+                "summary": "Create User",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "required": "true",
+                        "schema": {
+                            "$ref": "#/definitions/NewUser"
+                        }
+                    }
+                ],
+                "description": "Creates User",
+                "consumes": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "New user",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "summary": "Get user",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "string",
+                        "required": "true",
+                        "schema": {
+                            "$ref": "#/definitions/UserByID"
+                        }
+                    }
+                ],
+                "description": "GEt User by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "summary": "Authentication",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "required": "true",
+                        "schema": {
+                            "$ref": "#/definitions/Login"
+                        }
+                    }
+                ],
+                "description": "Login",
+                "consumes": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Succesfully Logged in",
+                        "schema": {
+                            "$ref": "#/definitions/Login"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "User": {
+            "type": "array",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "roles": {
+                    "type": "[]"
+                }
+            }
+        },
+        "NewUser": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "roles": {
+                    "type": "array"
+                }
+            }
+        },
+        "UserByID": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                }
+            }
+        },
+        "Login": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
