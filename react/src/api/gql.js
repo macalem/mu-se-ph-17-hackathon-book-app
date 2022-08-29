@@ -15,6 +15,8 @@ const query = {
         premium
         file
         status
+        genre
+        genre_id
       }
     }
   `,
@@ -50,6 +52,26 @@ const mutations = {
       }
     }
   `,
+
+  ADD_BOOK: gql`
+    mutation AddBook($input: AddBookRequest) {
+      addBook(input: $input) {
+        id
+        name
+        isbn
+      }
+    }
+  `,
+
+  UPDATE_BOOK_STATUS: gql`
+    mutation UpdateBookStatus($input: UpdateBookStatusRequest) {
+      updateBookStatus(input: $input) {
+        result
+      }
+    }
+  `,
 };
 
-export default { query, mutations };
+const gqlAPI = { query, mutations };
+
+export default gqlAPI;

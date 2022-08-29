@@ -10,5 +10,10 @@ export default [
     {
         id: "3",
         name: "Romance"
+    },
+    {
+        id: "4",
+        name: "Fiction"
     }
+
 ]

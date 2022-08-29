@@ -46,6 +46,7 @@ function LandingPage() {
               return (
                 <Grid key={book.id} xs={4}>
                   <BookCard
+                    bookID={book.id}
                     title={book.name}
                     author={book.author}
                     image={book.cover}
@@ -55,6 +56,7 @@ function LandingPage() {
                     dewey={book.dewey_decimal}
                     isbn={book.isbn}
                     status={book.status}
+                    file={book.file}
                   />
                 </Grid>
               );
