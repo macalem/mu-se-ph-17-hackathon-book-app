@@ -8,7 +8,6 @@ import { useState } from "react";
 import "./BookCard.css";
 import Theme from "../../const/theme";
 import BookModal from "../BookModal/BookModal";
-import { height } from "@mui/system";
 
 function BookCard(props) {
   const [open, setOpen] = useState(false);
