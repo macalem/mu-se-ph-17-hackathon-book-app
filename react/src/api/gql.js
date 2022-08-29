@@ -50,6 +50,16 @@ const mutations = {
       }
     }
   `,
+
+  UPDATE_BOOK_STATUS: gql`
+    mutation UpdateBookStatus($input: UpdateBookStatusRequest) {
+      updateBookStatus(input: $input) {
+        result
+      }
+    }
+  `,
 };
 
-export default { query, mutations };
+const gqlAPI = { query, mutations }
+
+export default gqlAPI;
