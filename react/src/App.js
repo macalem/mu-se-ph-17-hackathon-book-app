@@ -9,7 +9,7 @@ import RequireAuth from "./components/RequireAuth/RequireAuth";
 import ROLES from "./const/roles";
 import "./App.css";
 import UnauthorizedLogin from "./components/UnauthorizedLogin/UnauthorizedLogin";
-import PageNotFound from "./pages/pageNotFound/pageNotFound";
+import PageNotFound from "./pages/PageNotFound/PageNotFound";
 
 function App() {
   return (

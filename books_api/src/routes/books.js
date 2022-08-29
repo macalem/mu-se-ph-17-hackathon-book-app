@@ -45,7 +45,7 @@ router.post("/", async (req, res) => {
   }
 
   try {
-    const result = BookService.createBooks({
+    const result = BookService.createBook({
       name,
       dewey_decimal,
       isbn,

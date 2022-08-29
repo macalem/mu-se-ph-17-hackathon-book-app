@@ -1,7 +1,7 @@
 import booksData from "../../data/books.js";
 import GenreService from "./genres.js";
 
-import BOOK_STATUSES from '../constants/status.js';
+import BOOK_STATUSES from "../constants/status.js";
 
 // Fetch All Books
 const getAllBooks = () => {
@@ -17,16 +17,13 @@ const getAllBooks = () => {
   return books;
 };
 
-// Fetch specific book by its ID
-const getBookByID = (id) => getAllBooks().find((book) => book.id == id);
+const getBookByID = (id) => {
+  if (!id) throw new Error("Missing required parameter");
 
-// Fetch list of books by Genre name
-const getBooksByGenre = (genreName) => {
-  const genre = GenreService.getGenreByName(genreName);
-  return getAllBooks().filter((book) => book.genre_id == genre.id);
+  return getAllBooks().find((book) => book.id == id);
 };
 
-const createBooks = ({
+const createBook = ({
   name,
   dewey_decimal,
   description,
@@ -37,6 +34,15 @@ const createBooks = ({
   file,
   isbn,
 }) => {
+  // validate params
+  if (!author || !name || !file || !isbn) {
+    throw new Error("Missing required parameters");
+  }
+
+  // check if book exists.
+  if (booksData.find((book) => book.isbn === isbn)) {
+    throw new Error("Book already exists");
+  }
 
   const newBook = {
     id: parseInt(booksData[booksData.length - 1].id) + 1,
@@ -51,18 +57,7 @@ const createBooks = ({
     isbn: isbn,
   };
 
-  // validate params
-  if (!author || !name || !file || !isbn) {
-    throw new Error("Missing required parameters");
-  }
-
-  // check if user exists.
-  if (books.find((book) => book.isbn === isbn)) {
-    console.log("here");
-    throw new Error("Book already exists");
-  }
-
-  books.push(newBook);
+  booksData.push(newBook);
 
   return newBook;
 };
@@ -71,34 +66,34 @@ const createBooks = ({
 const getFilteredBooks = (filter) => {
   const genres = GenreService.getAllGenres();
 
-  filter = filter.trim().toLowerCase()
+  filter = filter.trim().toLowerCase();
 
   const books = getAllBooks().filter(
     (book) =>
       book.author.trim().toLowerCase().includes(filter) ||
       book.name.trim().toLowerCase().includes(filter) ||
-      book.genre_id == genres.find((genre) => genre.name.trim().toLowerCase().includes(filter))
+      book.genre_id ==
+        genres.find((genre) => genre.name.trim().toLowerCase().includes(filter))
   );
 
   return books;
 };
 
 // Update status of a book
-const updateBookStatus = ({id, status}) => {
+const updateBookStatus = ({ id, status }) => {
   if (!BOOK_STATUSES.includes(status)) throw new Error("wrong status");
 
   if (!getBookByID(id)) throw new Error("Book doesn't exist.");
 
-  booksData[booksData.findIndex(book => book.id == id)].status = status;
+  booksData[booksData.findIndex((book) => book.id == id)].status = status;
 
   return true;
-}
+};
 
 export default {
   getAllBooks,
   getBookByID,
-  getBooksByGenre,
-  createBooks,
+  createBook,
   getFilteredBooks,
-  updateBookStatus
+  updateBookStatus,
 };
