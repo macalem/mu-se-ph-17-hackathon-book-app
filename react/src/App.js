@@ -9,7 +9,7 @@ import RequireAuth from "./components/RequireAuth/RequireAuth";
 import ROLES from "./const/roles";
 import "./App.css";
 import UnauthorizedLogin from "./components/UnauthorizedLogin/UnauthorizedLogin";
-import PageNotFound from "./pages/PageNotFound/PageNotFound";
+import PageNotFound from "./pages/pageNotFound/pageNotFound";
 
 function App() {
   return (
@@ -18,19 +18,22 @@ function App() {
         <Routes>
           {/* public routes */}
           <Route exact path="/" element={<Home />} />
-          <Route path="/author" element={<AuthorPage />} />
-          
+
           <Route element={<UnauthorizedLogin />}>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Route>
 
           {/* we want to protect these routes */}
+          <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+            <Route path="/author" element={<AuthorPage />} />
+          </Route>
+
           <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
             <Route path="/admin" element={<AdminPage />} />
           </Route>
 
-          <Route path="*" element={<PageNotFound/>}/>
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Router>
     </div>
