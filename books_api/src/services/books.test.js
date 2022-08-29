@@ -12,6 +12,14 @@ describe("BookService", () => {
     it("should return the list of books", () => {
       expect(BookService.getAllBooks()).toContainEqual(testBook);
     });
+
+    it("should return the list of filtered books", () => {
+      expect(BookService.getAllBooks("Noli Me Tangere")).toContainEqual(testBook);
+    });
+
+    it("should return the paginated list of books", () => {
+      expect(BookService.getAllBooks("",{offset:9,limit:9})).not.toContainEqual(testBook);
+    });
   });
 
   describe("getBookByID", () => {
@@ -27,12 +35,6 @@ describe("BookService", () => {
 
     it("should return specific user when user ID is provided", () => {
       expect(BookService.getBookByID("1")).toEqual(testBook);
-    });
-  });
-
-  describe("getFilteredBooks", () => {
-    it("should return the list of filtered books", () => {
-      expect(BookService.getFilteredBooks("Noli Me Tangere")).toContainEqual(testBook);
     });
   });
 

@@ -5,13 +5,10 @@ const router = express.Router();
 
 /* GET books listing. */
 router.get("/", async (req, res) => {
-  const { filter } = req.query;
+  const { filter, offset, limit } = req.query;
+  console.log(req.query);
 
-  if (filter) {
-    return res.json(BookService.getFilteredBooks(filter));
-  }
-
-  return res.json(BookService.getAllBooks());
+  return res.json(BookService.getAllBooks(filter, {offset, limit}));
 });
 
 router.get("/:id", async (req, res) => {
