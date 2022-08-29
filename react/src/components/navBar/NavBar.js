@@ -24,14 +24,14 @@ function NavBar() {
   const logout = useLogout();
 
   const pages = auth?.user ? (auth?.user?.name !== "Admin" ? [
-    { id: 1, name: "Home", link: "/", roles: [ROLES.User] },
-    { id: 2, name: "About Us", link: "/register", roles: [] },
+    { id: 1, name: "Books", link: "/", roles: [ROLES.User] },
+    { id: 2, name: "About Us", link: "/about", roles: [] },
     { id: 3, name: "Author", link: "/author", roles: [] }
   ] : [
-    { id: 2, name: "About Us", link: "/register", roles: [] },
+    { id: 2, name: "About Us", link: "/about", roles: [] },
     { id: 3, name: "Admin", link: "/admin", roles: [ROLES.Admin] }
   ]) : [
-    { id: 1, name: "Home", link: "/", roles: [] },
+    { id: 1, name: "Books", link: "/", roles: [] },
     { id: 2, name: "About Us", link: "/about", roles: [] }
   ];
 
