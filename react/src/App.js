@@ -11,7 +11,7 @@ import ROLES from "./const/roles";
 import "./App.css";
 import UnauthorizedLogin from "./components/UnauthorizedLogin/UnauthorizedLogin";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
-import AboutUs from "./pages/AboutUsPage/AboutUs";
+
 function App() {
   return (
     <div className="App">

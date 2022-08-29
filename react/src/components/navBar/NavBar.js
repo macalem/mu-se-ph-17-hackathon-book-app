@@ -161,7 +161,7 @@ function NavBar() {
             ) : (
               <div className="login-text">
                 <p className="login-noclick" sx={{ p: 1 }}>
-                  {/* Hi, {auth.user.name} | &nbsp; */}
+                  {auth.user.name} &nbsp;
                   <Tooltip title="Logout">
                     <Button className="login-link" onClick={signOut}>
                       <LogoutIcon fontSize="large" />
