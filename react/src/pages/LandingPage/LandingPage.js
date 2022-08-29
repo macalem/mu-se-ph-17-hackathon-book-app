@@ -11,6 +11,14 @@ import Container from "@mui/material/Container";
 import "./LandingPage.css";
 import useAuth from "../../hooks/useAuth";
 import gqlAPI from "../../api/gql";
+import { Box, Tab, Tabs } from "@mui/material";
+
+const a11yProps = (index) => {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+};
 
 function LandingPage() {
   const { auth } = useAuth();
@@ -31,18 +39,54 @@ function LandingPage() {
     setFilter(filter);
   };
 
+  const [tabIndex, setTabIndex] = useState(0);
+  const [premium, setPremium] = useState(null);
+
+  const handleChange = (event, newValue) => {
+    setTabIndex(newValue);
+
+    if (newValue === 0) {
+      setPremium(null);
+    } else if (newValue === 1) {
+      setPremium(0);
+    } else if (newValue === 2) {
+      setPremium(1);
+    }
+  };
+
   return (
     <>
       <Nav />
       <LandingHeader />
       <SearchBar handleClickFilter={handleClickFilter} />
+
       <Container>
+        {auth?.user && (
+          <Box>
+            <Tabs
+              value={tabIndex}
+              onChange={handleChange}
+              aria-label=""
+              centered
+            >
+              <Tab label="All" {...a11yProps(0)} />
+              <Tab label="Free" {...a11yProps(1)} />
+              <Tab label="Premium" {...a11yProps(2)} />
+            </Tabs>
+          </Box>
+        )}
         <Grid container spacing={12} id="grid-container">
           {data?.books &&
             data.books.map((book) => {
-              if (book.status !== "APPROVED" || (!auth?.user && book.premium)) {
-                return false;
+              
+              if (book.status !== "APPROVED") return false
+              if (!auth?.user && book.premium) return false
+
+              if (auth?.user) {
+                if (premium === 0 && book.premium) return false;
+                if (premium === 1 && !book.premium) return false;
               }
+
               return (
                 <Grid key={book.id} xs={4}>
                   <BookCard

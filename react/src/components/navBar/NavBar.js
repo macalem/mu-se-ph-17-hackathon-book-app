@@ -11,6 +11,8 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link, useNavigate } from "react-router-dom";
+import PersonIcon from '@mui/icons-material/Person';
+import LogoutIcon from '@mui/icons-material/Logout';
 import ROLES from "../../const/roles";
 import "./NavBar.css";
 
@@ -151,7 +153,7 @@ function NavBar() {
                 <Link className="login-link" to="/Login">
                   <div className="login-text">
                     <p className="login-click" sx={{ p: 1 }}>
-                      LOGIN
+                      <PersonIcon fontSize="large" />
                     </p>
                   </div>
                 </Link>
@@ -162,7 +164,7 @@ function NavBar() {
                   {/* Hi, {auth.user.name} | &nbsp; */}
                   <Tooltip title="Logout">
                     <Button className="login-link" onClick={signOut}>
-                      Sign Out
+                      <LogoutIcon fontSize="large" />
                     </Button>
                   </Tooltip>
                 </p>
