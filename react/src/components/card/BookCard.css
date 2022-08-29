@@ -1,9 +1,10 @@
 .book-card {
-
+    cursor: pointer;
 }
 
 .book-card-premium {
     border: 1px solid gold;
+    cursor: pointer;
 }
 
 .card-description {
@@ -12,9 +13,18 @@
 
 .card-description-premium {
     background-color: #d5b406 !important;
+    text-align: center;
 }
 
 .card-text {
     color: white !important;
 }
 
+.card-text-title {
+    font-size: 1.2rem;
+}
+
+.card-text-author {
+    font-size: .8rem !important;
+    line-height: 1.4 !important;
+}

@@ -1,4 +1,5 @@
 export default [
+
     {
         id: "1",
         name: "Noli Me Tangere",
@@ -251,5 +252,4 @@ export default [
             cover:  "/assets/Amboy.jpeg",
             status: "APPROVED"
             }		
-
-]
+];
