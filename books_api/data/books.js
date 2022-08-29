@@ -109,7 +109,7 @@ export default [
             file: "/assets/pdf/Samadalisalita.pdf",
             isbn: "000",
             cover:  "/assets/samadalita.png",
-            status: "APPROVED"
+            status: "PENDING"
             },
 
             {
