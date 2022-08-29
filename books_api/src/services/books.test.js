@@ -9,7 +9,7 @@ const testBook = {
 
 describe("BookService", () => {
   describe("getAllBooks", () => {
-    it("should return the list of users", () => {
+    it("should return the list of books", () => {
       expect(BookService.getAllBooks()).toContainEqual(testBook);
     });
   });
@@ -27,6 +27,12 @@ describe("BookService", () => {
 
     it("should return specific user when user ID is provided", () => {
       expect(BookService.getBookByID("1")).toEqual(testBook);
+    });
+  });
+
+  describe("getFilteredBooks", () => {
+    it("should return the list of filtered books", () => {
+      expect(BookService.getFilteredBooks("Noli Me Tangere")).toContainEqual(testBook);
     });
   });
 
@@ -111,6 +117,30 @@ describe("BookService", () => {
           status: "PENDING",
         })
       ).toHaveProperty("id");
+    });
+  });
+
+  describe("updateBookStatus", () => {
+    it("should throw an error when required parameters are not provided", () => {
+      expect(() => BookService.updateBookStatus({})).toThrowError(
+        "Missing required parameters"
+      );
+    });
+
+    it("should throw an error when provided status is not on the list", () => {
+      expect(() =>
+        BookService.updateBookStatus({ id: "1", status: "wrong" })
+      ).toThrowError("Incorrect Status");
+    });
+
+    it("should throw an error when book doesn't exist", () => {
+      expect(() =>
+        BookService.updateBookStatus({ id: "100", status: "APPROVED" })
+      ).toThrowError("Book doesn't exist.");
+    });
+
+    it("should return true", () => {
+      expect(BookService.updateBookStatus({ id: "1", status: "APPROVED" })).toEqual(true);
     });
   });
 });

@@ -64,16 +64,13 @@ const createBook = ({
 
 // Fetch list of books by filter
 const getFilteredBooks = (filter) => {
-  const genres = GenreService.getAllGenres();
-
   filter = filter.trim().toLowerCase();
-
+  
   const books = getAllBooks().filter(
     (book) =>
       book.author.trim().toLowerCase().includes(filter) ||
       book.name.trim().toLowerCase().includes(filter) ||
-      book.genre_id ==
-        genres.find((genre) => genre.name.trim().toLowerCase().includes(filter))
+      book.genre.trim().toLowerCase().includes(filter)
   );
 
   return books;
@@ -81,7 +78,9 @@ const getFilteredBooks = (filter) => {
 
 // Update status of a book
 const updateBookStatus = ({ id, status }) => {
-  if (!BOOK_STATUSES.includes(status)) throw new Error("wrong status");
+  if (!id || !status) throw new Error("Missing required parameters");
+
+  if (!BOOK_STATUSES.includes(status)) throw new Error("Incorrect Status");
 
   if (!getBookByID(id)) throw new Error("Book doesn't exist.");
 

@@ -15,6 +15,8 @@ const query = {
         premium
         file
         status
+        genre
+        genre_id
       }
     }
   `,

@@ -23,6 +23,7 @@ const typeDefs = gql`
     isbn: String
     cover: String
     status: String
+    genre: String
   }
 
   type User {
