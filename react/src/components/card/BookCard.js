@@ -25,7 +25,7 @@ function BookCard(props) {
       <ThemeProvider theme={Theme}>
         <Card
           onClick={() => handleOpen()}
-          sx={{ display: "flex", maxHeight: 200, width: 200}}
+          sx={{ display: "flex", maxHeight: 300, width: 230}}
           className={props.premium ? "book-card-premium" : "book-card"}
         >
           <Box sx={{ display: "flex", flexDirection: "column", height: "300px", textAlign:"left" }}>

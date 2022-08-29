@@ -15,7 +15,7 @@ import gqlAPI from "../../api/gql";
 import { Typography } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box";
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -24,15 +24,15 @@ const Alert = forwardRef(function Alert(props, ref) {
 const a11yProps = (index) => {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
-}
+};
 
 export default function AdminPage() {
   const [GetBooks, { data, refetch }] = useLazyQuery(gqlAPI.query.GET_BOOKS, {
     variables: {
       filter: "",
-    }
+    },
   });
 
   useEffect(() => {

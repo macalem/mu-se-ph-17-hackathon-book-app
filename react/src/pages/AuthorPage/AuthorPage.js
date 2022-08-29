@@ -36,6 +36,7 @@ import "./AuthorPage.css";
 import Footer from "../../components/footer/Footer";
 
 import gqlAPI from "../../api/gql";
+import NavBar from "../../components/navBar/NavBar";
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -149,17 +150,7 @@ function AuthorPage() {
           {snackBarMessage}
         </Alert>
       </Snackbar>
-      <div className="author-page-back-btn">
-        <Grid container spacing={12}>
-          <Grid xs={2}>
-            <Link className="back-btn-icon" to="/">
-              <IconButton aria-label="delete">
-                <ArrowBackIcon style={{ color: "white" }} />
-              </IconButton>
-            </Link>
-          </Grid>
-        </Grid>
-      </div>
+      <NavBar />
       <div className="author-form-banner">
         <h2>Author Form</h2>
       </div>

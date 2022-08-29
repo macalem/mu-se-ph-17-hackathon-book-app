@@ -1,0 +1,255 @@
+{
+    "swagger": "2.0",
+    "definition": {
+        "openapi": "3.0.0",
+        "info": {
+            "title": "users api",
+            "version": "1.0.0"
+        }
+    },
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "apis": [
+        ".routes/*.js"
+    ],
+    "basePath": "/",
+    "paths": {
+        "/books": {
+            "get": {
+                "summary": "Get all Books",
+                "description": "Retrieves list of Books",
+                "responses": {
+                    "200": {
+                        "description": "The list of Books",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Books"
+                            }
+                        }
+                    }
+                }
+            },
+
+            "post": {
+                "summary": "Add Book",
+                "parameters": [
+                    {
+                        "name": "book",
+                        "in": "body",
+                        "required": "true",
+                        "schema": {
+                            "$ref": "#/definitions/addBook"
+                        }
+                    }
+                ],
+                "description": "Add new Book",
+                "consumes": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "New Book",
+                        "schema": {
+                            "$ref": "#/definitions/addBook"
+                        }
+                    }
+                }
+            }
+        },
+        "/books/{id}": {
+            "get": {
+                "summary": "Get Book by Id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "string",
+                        "required": "true",
+                        "schema": {
+                            "$ref": "#/definitions/Books"
+                        }
+                    }
+                ],
+                "description": "GEt Book by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Books",
+                        "schema": {
+                            "$ref": "#/definitions/Books"
+                        }
+                    }
+                }
+            }
+        },
+        "/books/{id}/status": {
+            "post": {
+                "summary": "Get books by id and status",
+                "parameters": [
+                    {
+                        "name": "book",
+                        "in": "body",
+                        "required": "true",
+                        "schema": {
+                            "$ref": "#/definitions/BookByStatusId"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": "true",
+                        "schema": {
+                            "$ref": "#/definitions/Books"
+                        }
+                    }
+                ],
+                "description": "Get books by id and status",
+                "consumes": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List Of Books",
+                        "schema": {
+                            "$ref": "#/definitions/Books"
+                        }
+                    }
+                }
+            }
+        },
+        "/books/genres/{id}": {
+            "get": {
+                "summary": "Get Book Genre by Id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "string",
+                        "required": "true",
+                        "schema": {
+                            "$ref": "#/definitions/Books"
+                        }
+                    }
+                ],
+                "description": "Get Book Genre by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Books",
+                        "schema": {
+                            "$ref": "#/definitions/Books"
+                        }
+                    }
+                }
+            }
+        },
+        "/books/genres": {
+            "get": {
+                "summary": "Get all books by genre",
+                "description": "Get all books by genre",
+                "responses": {
+                    "200": {
+                        "description": "The list of Books by genre",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Books"
+                            }
+                        }
+                    }
+                }
+            }
+        
+        }
+    
+    },
+    "definitions": {
+        "Books": {
+            "type": "array",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "dewey_decimal": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "author": {
+                    "type": "string"
+                },
+                "published_date": {
+                    "type": "string"
+                },
+                "premium": {
+                    "type": "string"
+                },
+                "file": {
+                    "type": "string"
+                },
+                "isbn": {
+                    "type": "string"
+                },
+                "cover": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                }
+
+            }
+        },
+        "addBook": {
+            "type": "array",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "dewey_decimal": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "author": {
+                    "type": "string"
+                },
+                "published_date": {
+                    "type": "string"
+                },
+                "premium": {
+                    "type": "string"
+                },
+                "file": {
+                    "type": "string"
+                },
+                "isbn": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                }
+
+            }
+        },
+        "BookByStatusId": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
