@@ -3,7 +3,7 @@
 }
 
 .book-card-premium {
-    border: 1px solid gold;
+    border: 5px solid gold;
 }
 
 .card-description {
@@ -11,7 +11,9 @@
 }
 
 .card-description-premium {
-    background-color: #d5b406 !important;
+    color: #d5b406 !important;
+    font-size: 12px;
+    padding-top: 10px;
 }
 
 .card-text {
