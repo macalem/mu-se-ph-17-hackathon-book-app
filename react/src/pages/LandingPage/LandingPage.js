@@ -11,7 +11,7 @@ import Container from "@mui/material/Container";
 import "./LandingPage.css";
 import useAuth from "../../hooks/useAuth";
 import gqlAPI from "../../api/gql";
-import { Box, Tab, Tabs, ThemeProvider } from "@mui/material";
+import { Box, Tab, Tabs, ThemeProvider, Typography } from "@mui/material";
 import Theme from "../../const/theme";
 
 const a11yProps = (index) => {
@@ -62,54 +62,61 @@ function LandingPage() {
       <SearchBar handleClickFilter={handleClickFilter} />
 
       <ThemeProvider theme={Theme}>
-      <div className="book-handler">
-        <Container>
-          <h1>Top Books. . .</h1>
-          {auth?.user && (
-            <Box>
-              <Tabs
-                value={tabIndex}
-                onChange={handleChange}
-                aria-label=""
-                centered
-              >
-                <Tab label="All" {...a11yProps(0)} />
-                <Tab label="Free" {...a11yProps(1)} />
-                <Tab label="Premium" {...a11yProps(2)} />
-              </Tabs>
-            </Box>
-          )}
-          <Grid container spacing={12} id="grid-container">
-            {data?.books &&
-              data.books.map((book) => {
-                if (book.status !== "APPROVED") return false;
-                if (!auth?.user && book.premium) return false;
+        <div className="book-handler">
+          <Container>
+            <Typography variant="h3" fontWeight={500} color="white">
+              Top Books
+            </Typography>
+            {auth?.user && (
+              <Box>
+                <Tabs
+                  className="tab-white"
+                  value={tabIndex}
+                  onChange={handleChange}
+                  aria-label=""
+                  centered
+                >
+                  <Tab className="tab-white" label="All" {...a11yProps(0)} />
+                  <Tab className="tab-white" label="Free" {...a11yProps(1)} />
+                  <Tab
+                    className="tab-white"
+                    label="Premium"
+                    {...a11yProps(2)}
+                  />
+                </Tabs>
+              </Box>
+            )}
+            <Grid container spacing={12} id="grid-container">
+              {data?.books &&
+                data.books.map((book) => {
+                  if (book.status !== "APPROVED") return false;
+                  if (!auth?.user && book.premium) return false;
 
-                if (auth?.user) {
-                  if (premium === 0 && book.premium) return false;
-                  if (premium === 1 && !book.premium) return false;
-                }
+                  if (auth?.user) {
+                    if (premium === 0 && book.premium) return false;
+                    if (premium === 1 && !book.premium) return false;
+                  }
 
-                return (
-                  <Grid key={book.id} xs={4}>
-                    <BookCard
-                      bookID={book.id}
-                      title={book.name}
-                      author={book.author}
-                      image={book.cover}
-                      premium={book.premium}
-                      description={book.description}
-                      published_date={book.published_date}
-                      dewey={book.dewey_decimal}
-                      isbn={book.isbn}
-                      status={book.status}
-                      file={book.file}
-                    />
-                  </Grid>
-                );
-              })}
-          </Grid>
-        </Container>
+                  return (
+                    <Grid key={book.id} xs={4}>
+                      <BookCard
+                        bookID={book.id}
+                        title={book.name}
+                        author={book.author}
+                        image={book.cover}
+                        premium={book.premium}
+                        description={book.description}
+                        published_date={book.published_date}
+                        dewey={book.dewey_decimal}
+                        isbn={book.isbn}
+                        status={book.status}
+                        file={book.file}
+                      />
+                    </Grid>
+                  );
+                })}
+            </Grid>
+          </Container>
         </div>
       </ThemeProvider>
       <Footer />
