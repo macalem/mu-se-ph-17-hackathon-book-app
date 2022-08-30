@@ -60,53 +60,56 @@ function LandingPage() {
       <LandingHeader />
       <SearchBar handleClickFilter={handleClickFilter} />
 
-      <Container>
-        {auth?.user && (
-          <Box>
-            <Tabs
-              value={tabIndex}
-              onChange={handleChange}
-              aria-label=""
-              centered
-            >
-              <Tab label="All" {...a11yProps(0)} />
-              <Tab label="Free" {...a11yProps(1)} />
-              <Tab label="Premium" {...a11yProps(2)} />
-            </Tabs>
-          </Box>
-        )}
-        <Grid container spacing={12} id="grid-container">
-          {data?.books &&
-            data.books.map((book) => {
-              
-              if (book.status !== "APPROVED") return false
-              if (!auth?.user && book.premium) return false
+      <div className="book-handler">
+        <Container>
+          <h1>Top Books. . .</h1>
+          {auth?.user && (
+            <Box>
+              <Tabs
+                value={tabIndex}
+                onChange={handleChange}
+                aria-label=""
+                centered
+              >
+                <Tab label="All" {...a11yProps(0)} />
+                <Tab label="Free" {...a11yProps(1)} />
+                <Tab label="Premium" {...a11yProps(2)} />
+              </Tabs>
+            </Box>
+          )}
+          <Grid container spacing={12} id="grid-container">
+            {data?.books &&
+              data.books.map((book) => {
 
-              if (auth?.user) {
-                if (premium === 0 && book.premium) return false;
-                if (premium === 1 && !book.premium) return false;
-              }
+                if (book.status !== "APPROVED") return false
+                if (!auth?.user && book.premium) return false
 
-              return (
-                <Grid key={book.id} xs={4}>
-                  <BookCard
-                    bookID={book.id}
-                    title={book.name}
-                    author={book.author}
-                    image={book.cover}
-                    premium={book.premium}
-                    description={book.description}
-                    published_date={book.published_date}
-                    dewey={book.dewey_decimal}
-                    isbn={book.isbn}
-                    status={book.status}
-                    file={book.file}
-                  />
-                </Grid>
-              );
-            })}
-        </Grid>
-      </Container>
+                if (auth?.user) {
+                  if (premium === 0 && book.premium) return false;
+                  if (premium === 1 && !book.premium) return false;
+                }
+
+                return (
+                  <Grid key={book.id} xs={4}>
+                    <BookCard
+                      bookID={book.id}
+                      title={book.name}
+                      author={book.author}
+                      image={book.cover}
+                      premium={book.premium}
+                      description={book.description}
+                      published_date={book.published_date}
+                      dewey={book.dewey_decimal}
+                      isbn={book.isbn}
+                      status={book.status}
+                      file={book.file}
+                    />
+                  </Grid>
+                );
+              })}
+          </Grid>
+        </Container>
+      </div>
       <Footer />
     </>
   );

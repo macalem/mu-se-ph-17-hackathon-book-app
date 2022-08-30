@@ -46,7 +46,7 @@ function AboutUs() {
               paragraph
             >
               MAKABASA is a filipino web application that promotes the
-              Philippine culture which offers a Filipino books in different
+              Philippine culture which offers Filipino books in different
               genres. Our mission is to help people find their interest in
               different Filipino genre books and advertise our Filipino authors
               for making their works be known. As most of us lost interest in
@@ -74,7 +74,7 @@ function AboutUs() {
               paragraph
             >
               As a user, you can browse and search based on book, author&apos;s
-              name, and genre. There are also some free books for a non-users.
+              name, and genre. There are also some free books that you can read for a non-users.
             </Typography>
           </Container>
         </div>

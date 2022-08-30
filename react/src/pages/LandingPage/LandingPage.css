@@ -1,3 +1,15 @@
 #grid-container {
     margin: 0 3% 0 3% !important;
 }
+
+.book-handler {
+    padding: 2%;
+    background-image: url('https://res.cloudinary.com/kthln10/image/upload/v1661621261/banner_2_gpifbo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.book-handler h1 {
+    color: black;
+    font-weight: bolder !important;
+}
