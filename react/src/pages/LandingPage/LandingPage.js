@@ -62,7 +62,9 @@ function LandingPage() {
       <SearchBar handleClickFilter={handleClickFilter} />
 
       <ThemeProvider theme={Theme}>
+      <div className="book-handler">
         <Container>
+          <h1>Top Books. . .</h1>
           {auth?.user && (
             <Box>
               <Tabs
@@ -108,6 +110,7 @@ function LandingPage() {
               })}
           </Grid>
         </Container>
+        </div>
       </ThemeProvider>
       <Footer />
     </>
