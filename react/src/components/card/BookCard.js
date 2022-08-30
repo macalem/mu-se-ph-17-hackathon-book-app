@@ -41,7 +41,7 @@ function BookCard(props) {
               >
                 by {props.author}
               </Typography>
-            {props.premium === 0 && <Typography className="card-description-premium" component="div" variant="">
+            {props.premium === 1 && <Typography className="card-description-premium" component="div" variant="">
                 PREMIUM
               </Typography> }
             </CardContent>

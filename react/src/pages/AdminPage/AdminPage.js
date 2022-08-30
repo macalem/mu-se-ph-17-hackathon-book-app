@@ -37,8 +37,10 @@ export default function AdminPage() {
   });
 
   useEffect(() => {
-    GetBooks();
-  }, [GetBooks]);
+    refetch({
+      filter: "",
+    });
+  }, [refetch]);
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackBarMessage, setSnackBarMessage] = useState();
