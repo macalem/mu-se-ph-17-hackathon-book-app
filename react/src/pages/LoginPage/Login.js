@@ -24,6 +24,7 @@ import gqlAPI from "../../api/gql";
 import roles from "../../const/roles";
 import useAuth from "../../hooks/useAuth";
 import Footer from "../../components/footer/Footer";
+import Theme from "../../const/theme";
 
 function SignUp(props) {
   return (
@@ -113,7 +114,7 @@ export default function Login() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={Theme}>
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={openSnackbar}

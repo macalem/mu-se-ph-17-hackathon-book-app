@@ -26,6 +26,8 @@ import useAuth from "../../hooks/useAuth";
 import Nav from "../../components/navBar/NavBar";
 import Footer from "../../components/footer/Footer";
 
+import Theme from "../../const/theme";
+
 function SignIn(props) {
   return (
     <Typography
@@ -126,7 +128,7 @@ export default function Register() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={Theme}>
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={openSnackbar}
