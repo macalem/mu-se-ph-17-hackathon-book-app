@@ -1,6 +1,5 @@
 import { forwardRef, useEffect, useState } from "react";
 import { useLazyQuery, useMutation } from "@apollo/client";
-import { Link } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
@@ -10,8 +9,6 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import IconButton from "@mui/material/IconButton";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -113,7 +110,7 @@ function AuthorPage() {
     if (form.published_date) {
       form.published_date = convertPublishedDate(form.published_date);
     }
-    form.premium = form.premium === "true" ? true : false;
+    form.premium = form.premium === "true" ? 1 : 0;
     form.status = "PENDING";
     console.log(form);
 

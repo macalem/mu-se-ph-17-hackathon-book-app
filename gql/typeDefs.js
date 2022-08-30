@@ -18,7 +18,7 @@ const typeDefs = gql`
     author: String
     published_date: String
     genre_id: String
-    premium: Boolean
+    premium: Int
     file: String
     isbn: String
     cover: String
@@ -57,7 +57,7 @@ const typeDefs = gql`
     author: String!
     published_date: String
     genre_id: String
-    premium: Boolean
+    premium: Int
     file: String
     isbn: String!
     status: String
