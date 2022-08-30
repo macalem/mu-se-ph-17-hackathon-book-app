@@ -76,7 +76,7 @@ function AuthorPage() {
     handleSubmit,
     formState: { errors },
     control,
-    // reset
+    reset
   } = useForm(formOptions);
 
   const convertPublishedDate = (publishedDate) => {
@@ -94,7 +94,7 @@ function AuthorPage() {
       setSnackBarMessage("Book has been submitted!");
       setOpenSnackbar(true);
       setDisableSubmitButton(false);
-      // reset();
+      reset();
     },
     onError: (error) => {
       console.log(error);
