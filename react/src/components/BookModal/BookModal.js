@@ -12,6 +12,8 @@ import useAuth from "../../hooks/useAuth";
 import roles from "../../const/roles";
 import gqlAPI from "../../api/gql";
 
+import "./BookModal.css";
+
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
@@ -202,6 +204,7 @@ const BookModal = ({
                   <ButtonGroup>
                     <Button variant="contained" color="warning">
                       <Link
+                        className="button-read"
                         sx={{ textDecoration: "none" }}
                         href={file}
                         target="_blank"
