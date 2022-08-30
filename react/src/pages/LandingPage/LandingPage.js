@@ -11,7 +11,8 @@ import Container from "@mui/material/Container";
 import "./LandingPage.css";
 import useAuth from "../../hooks/useAuth";
 import gqlAPI from "../../api/gql";
-import { Box, Tab, Tabs } from "@mui/material";
+import { Box, Tab, Tabs, ThemeProvider } from "@mui/material";
+import Theme from "../../const/theme";
 
 const a11yProps = (index) => {
   return {
@@ -60,6 +61,7 @@ function LandingPage() {
       <LandingHeader />
       <SearchBar handleClickFilter={handleClickFilter} />
 
+      <ThemeProvider theme={Theme}>
       <div className="book-handler">
         <Container>
           <h1>Top Books. . .</h1>
@@ -80,9 +82,8 @@ function LandingPage() {
           <Grid container spacing={12} id="grid-container">
             {data?.books &&
               data.books.map((book) => {
-
-                if (book.status !== "APPROVED") return false
-                if (!auth?.user && book.premium) return false
+                if (book.status !== "APPROVED") return false;
+                if (!auth?.user && book.premium) return false;
 
                 if (auth?.user) {
                   if (premium === 0 && book.premium) return false;
@@ -109,7 +110,8 @@ function LandingPage() {
               })}
           </Grid>
         </Container>
-      </div>
+        </div>
+      </ThemeProvider>
       <Footer />
     </>
   );

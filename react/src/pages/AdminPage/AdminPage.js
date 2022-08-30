@@ -12,10 +12,11 @@ import BookCard from "../../components/card/BookCard";
 import Footer from "../../components/footer/Footer";
 
 import gqlAPI from "../../api/gql";
-import { Typography } from "@mui/material";
+import { Typography, ThemeProvider } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+import Theme from "../../const/theme";
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -74,61 +75,63 @@ export default function AdminPage() {
 
   return (
     <>
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        open={openSnackbar}
-        onClose={handleSnackbarClose}
-        autoHideDuration={6000}
-      >
-        <Alert
+      <ThemeProvider theme={Theme}>
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={openSnackbar}
           onClose={handleSnackbarClose}
-          severity={snackBarSeverity}
-          sx={{ width: "100%" }}
+          autoHideDuration={6000}
         >
-          {snackBarMessage}
-        </Alert>
-      </Snackbar>
-      <Nav />
-      <Container className="login-body">
-        <Typography variant="h4" component="h4">
-          Submitted Books
-        </Typography>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs
-            value={tabIndex}
-            onChange={handleChange}
-            aria-label="basic tabs example"
+          <Alert
+            onClose={handleSnackbarClose}
+            severity={snackBarSeverity}
+            sx={{ width: "100%" }}
           >
-            <Tab label="Pending" {...a11yProps(0)} />
-            <Tab label="Approved" {...a11yProps(1)} />
-            <Tab label="Rejected" {...a11yProps(2)} />
-          </Tabs>
-        </Box>
-        <Grid container spacing={12} id="grid-container">
-          {data?.books.map((book) => {
-            return (
-              book.status === status && (
-                <Grid xs={4} key={book.id}>
-                  <BookCard
-                    bookID={book.id}
-                    title={book.name}
-                    author={book.author}
-                    image={book.cover}
-                    description={book.description}
-                    published_date={book.published_date}
-                    dewey={book.dewey_decimal}
-                    isbn={book.isbn}
-                    status={book.status}
-                    file={book.file}
-                    premium={book.premium}
-                    updateBookStatus={updateBookStatus}
-                  />
-                </Grid>
-              )
-            );
-          })}
-        </Grid>
-      </Container>
+            {snackBarMessage}
+          </Alert>
+        </Snackbar>
+        <Nav />
+        <Container className="login-body">
+          <Typography variant="h3" component="h4" color="primary" fontWeight={500}>
+            Submitted Books
+          </Typography>
+          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <Tabs
+              value={tabIndex}
+              onChange={handleChange}
+              aria-label="basic tabs example"
+            >
+              <Tab color="secondary" label="Pending" {...a11yProps(0)} />
+              <Tab color="secondary" label="Approved" {...a11yProps(1)} />
+              <Tab color="secondary" label="Rejected" {...a11yProps(2)} />
+            </Tabs>
+          </Box>
+          <Grid container spacing={12} id="grid-container">
+            {data?.books.map((book) => {
+              return (
+                book.status === status && (
+                  <Grid xs={4} key={book.id}>
+                    <BookCard
+                      bookID={book.id}
+                      title={book.name}
+                      author={book.author}
+                      image={book.cover}
+                      description={book.description}
+                      published_date={book.published_date}
+                      dewey={book.dewey_decimal}
+                      isbn={book.isbn}
+                      status={book.status}
+                      file={book.file}
+                      premium={book.premium}
+                      updateBookStatus={updateBookStatus}
+                    />
+                  </Grid>
+                )
+              );
+            })}
+          </Grid>
+        </Container>
+      </ThemeProvider>
       <Footer />
     </>
   );

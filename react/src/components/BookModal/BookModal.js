@@ -7,10 +7,13 @@ import Box from "@mui/material/Box";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button, ButtonGroup, Grid, Link, Modal } from "@mui/material";
+import MicIcon from "@mui/icons-material/Mic";
 
 import useAuth from "../../hooks/useAuth";
 import roles from "../../const/roles";
 import gqlAPI from "../../api/gql";
+
+import "./BookModal.css";
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -199,9 +202,19 @@ const BookModal = ({
                   </Box>
                 </Grid>
                 <Grid item xs={12} sx={{ margin: "auto" }}>
+                  <Button variant="contained" sx={{ pr: 11.7, pl: 11.7 }}>
+                    <MicIcon />
+                  </Button>
+                </Grid>
+                <Grid item xs={12} sx={{ margin: "auto" }}>
                   <ButtonGroup>
-                    <Button variant="contained" color="warning">
+                    <Button
+                      variant="contained"
+                      color="warning"
+                      sx={{ pr: 4, pl: 4 }}
+                    >
                       <Link
+                        className="button-read"
                         sx={{ textDecoration: "none" }}
                         href={file}
                         target="_blank"
@@ -218,6 +231,8 @@ const BookModal = ({
                       Download
                     </Button>
                   </ButtonGroup>
+                </Grid>
+                <Grid item xs={12} sx={{ margin: "auto" }}>
                   {status === "PENDING" &&
                   auth?.user &&
                   auth?.roles.includes(roles.Admin) ? (
@@ -227,6 +242,7 @@ const BookModal = ({
                         color="warning"
                         onClick={onAcceptSubmit}
                         disabled={disableSubmitButton}
+                        sx={{ pr: 3, pl: 3 }}
                       >
                         Accept
                       </Button>
@@ -235,6 +251,7 @@ const BookModal = ({
                         color="error"
                         onClick={onRejectedSubmit}
                         disabled={disableSubmitButton}
+                        sx={{ pr: 4, pl: 3 }}
                       >
                         Reject
                       </Button>
