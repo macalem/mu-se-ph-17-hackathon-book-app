@@ -6,7 +6,7 @@ import MuiAlert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Button, ButtonGroup, Grid, Modal } from "@mui/material";
+import { Button, ButtonGroup, Grid, Link, Modal } from "@mui/material";
 
 import useAuth from "../../hooks/useAuth";
 import roles from "../../const/roles";
@@ -133,7 +133,15 @@ const BookModal = ({
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box sx={{ ...style, width: 700, position: "absolute", overflowY: "scroll", maxHeight: "90%"}}>
+        <Box
+          sx={{
+            ...style,
+            width: 700,
+            position: "absolute",
+            overflowY: "scroll",
+            maxHeight: "90%",
+          }}
+        >
           <Grid container columnSpacing={3}>
             <Grid item xs={6}>
               <CardMedia
@@ -183,14 +191,24 @@ const BookModal = ({
                   <Typography variant="body1">{published_date}</Typography>
                 </Grid>
                 <Grid item xs={12}>
-                  <Typography variant="body1"> {description} </Typography>
+                  <Box
+                    className="description-scrollbar"
+                    sx={{ maxHeight: 145, overflow: "auto" }}
+                  >
+                    <Typography variant="body1"> {description} </Typography>
+                  </Box>
                 </Grid>
                 <Grid item xs={12} sx={{ margin: "auto" }}>
                   <ButtonGroup>
                     <Button variant="contained" color="warning">
-                      <a href={file} target="_blank" rel="noreferrer">
+                      <Link
+                        sx={{ textDecoration: "none" }}
+                        href={file}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         Read
-                      </a>
+                      </Link>
                     </Button>
                     <Button
                       variant="contained"
